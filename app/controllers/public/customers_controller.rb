@@ -1,0 +1,46 @@
+class Public::CustomersController < ApplicationController
+  before_action :authenticate_customer!
+
+  def show    #--- GET /customers/:id
+    @customer = current_customer
+  end
+
+  def edit    #--- GET /customers/:id/edit
+    @customer = current_customer
+  end
+
+  def update    #--- PATCH/PUT /customers/:id
+    customer = current_customer
+    if customer.update(customer_params)
+      redirect_to customer, notice: '会員情報を更新しました'
+    else
+      render :show
+    end
+  end
+
+  def info    #--- GET /customers/:id/info
+    @customer = current_customer
+  end
+
+  def quit    #--- GET /customers/:id/quit
+    @customer = current_customer
+  end
+
+def deactive	#--- PATCH /customers/:id/deactive
+  customer = current_customer
+  if confirm('退会しますか？')
+    customer.update(is_active: false)
+    reset_session
+    flash.clear
+    redirect_to root_path, notice: '退会しました'
+  else
+    redirect_back(fallback_location: root_path)
+  end
+end
+
+  private
+
+  def customer_params
+      params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telphone_number, :email, is_active)
+  end
+end
