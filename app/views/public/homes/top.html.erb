@@ -1,1 +1,48 @@
-<div>top</div>
+<% provide(:title, "ホーム") %>
+<div class="container">
+		<div id="carouselExampleIndicators" class="carousel slide mx-auto slide-box rounded mx-auto" data-ride="carousel">
+		  <ol class="carousel-indicators">
+		    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+		    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+		    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+		  </ol>
+		  <div class="carousel-inner">
+
+		  </div>
+		  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Previous</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Next</span>
+		  </a>
+		</div>
+	<div class="row mx-auto">
+	</div>
+
+	<div class="row">
+		<div class="col-12 mx-auto">
+			<div class="new-item-box">
+				<h3 class="text-center new-ite">新着商品</h3>
+				<div class="d-flex felx-wrap justify-content-around">
+					<% @items.first(4).each do |item| %>
+						<div>
+							<%= link_to item_path(item) do %>
+							  <%= attachment_image_tag(item, :image, size: "180x130", fallback: "no_image.jpg", class: "new-item-img") %>
+							<% end %>
+							<p class="text-center item-name"><%= link_to item.name, item_path(item), id: "item_link", class: "item-name-link" %></p>
+
+							<% if item.is_valid == true %>
+							  <p class="text-right">¥<%= product.price.to_s(:delimited) %></p>
+							<% elsif item.is_sale == false %>
+							  <p class="text-right">売切</p>
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+				<%= link_to "全ての商品を見る >", items_path, class: "float-right btn fas fa-cheese products-link" %>
+			</div>
+		</div>
+	</div>
+</div>
