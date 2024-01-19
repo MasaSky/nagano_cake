@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-2"></div>
+  <h4 class="bg-light title">会員情報編集</h4>
+</div>
+
+<div class="row table-row">
+  <div class="col-2"></div>
+  <div>
+    <%= form_with( model:@customer, url: customers_path, local:true) do |f| %>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>氏名</th>
+            <td><%= f.text_field :last_name %>　<%= f.text_field :first_name %></td>
+          </tr>
+          <tr>
+            <th>フリガナ</th>
+            <td><%= f.text_field :last_name_kana %>　<%= f.text_field :first_name_kana %></td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td><%= f.text_field :postal_code %></td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td><%= f.text_field :address, size: "60x20" %></td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td><%= f.text_field :telphone_number %></td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td><%= f.text_field :email %></td>
+          </tr>
+          <tr>
+            <th></th>
+            <td>
+              <%= f.submit "編集内容を保存", class: "btn btn-outline-success" %>
+              <%= link_to "退会する", quit_customers_path, class: "btn btn-outline-danger quit-link" %>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <div class="col-2"></div>
+</div>

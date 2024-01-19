@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-2"></div>
+    <h4 class="bg-light title">配送先編集</h4>
+</div>
+
+<div class="row edit-delivery-form">
+  <div class="col-2"></div>
+  <div>
+    <%= form_with( model:@delivery, url: delivery_path, local:true) do |f| %>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>郵便番号（ハイフンなし）</th>
+            <td><%= f.text_field :postal_code, autofocus: true, id:"inputName", class: "form-control" %></td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td><%= f.text_field :address, autofocus: true, id:"inputName", size: "60x20", class: "form-control" %></td>
+          </tr>
+          <tr>
+            <th>宛先</th>
+            <td class="form-group"><%= f.text_field :attention, autofocus: true, id:"inputName", class: "form-control" %></td>
+            <td><%= f.submit "編集内容を保存", class: "btn btn-outline-success" %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <div class="col-2"></div>
+</div>
+
+<div class="row mx-auto">
+  <div class="col-2"></div>
+  <% if flash[:alert].present? %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>

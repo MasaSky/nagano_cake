@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-2"></div>
+  <h4 class="bg-light title">配送先登録/一覧</h4>
+</div>
+
+<div class="row new-delivery-form">
+  <div class="col-2"></div>
+  <div>
+    <table class="table table-bordered">
+      <%= form_with( model: @delivery, url: deliveries_path, local:true) do |f| %>
+        <tbody>
+          <tr>
+            <th>郵便番号（ハイフンなし）</th>
+            <td><%= f.text_field :postal_code %></td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td><%= f.text_field :address, size: "60x20" %></td>
+          </tr>
+          <tr>
+            <th>宛先</th>
+            <td><%= f.text_field :attention %></td>
+            <td class="form-group"><%= f.submit '新規登録', class: 'btn btn-sm btn-outline-success opinion_field' %></td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-2"></div>
+</div>
+
+<div class="row mx-auto">
+  <div class="col-2"></div>
+  <% if flash[:succsss].present? %>
+    <div class="alert alert-success">
+      <%= flash[:success] %>
+    </div>
+  <% end %>
+  <% if flash[:alert].present? %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>
+
+
+<div class="row table-row">
+
+  <% if !@addresses.present? %>
+  <div class="row mx-auto">
+    <h5 class="mx-auto">配送先が登録されていません。</h5>
+  </div>
+
+  <% else %>
+
+  <div class="col-2"></div>
+  <div class="table-box">
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>郵便番号</th>
+          <th>住所</th>
+          <th>宛名</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @deliveries.each do |ad| %>
+        <tr>
+          <td><%= ad.postal_code %></td>
+          <td><%= ad.address %></td>
+          <td><%= ad.attention %></td>
+          <td><%= link_to '編集する', edit_delivery_path(delivery.id), class: 'btn btn-outline-success' %>　<%= link_to '削除する', delivery_path(delivery.id), method: :delete, class: 'btn btn-outline-danger' %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-2"></div>
+  <% end %>
+</div>

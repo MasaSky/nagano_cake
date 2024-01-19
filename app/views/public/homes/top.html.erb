@@ -33,9 +33,9 @@
 							<% end %>
 							<p class="text-center item-name"><%= link_to item.name, item_path(item), id: "item_link", class: "item-name-link" %></p>
 
-							<% if item.is_valid == true %>
-							  <p class="text-right">¥<%= product.price.to_s(:delimited) %></p>
-							<% elsif item.is_sale == false %>
+							<% if item.is_active == true %>
+							  <p class="text-right">¥<%= item.price.to_s(:delimited) %></p>
+							<% elsif item.is_active == false %>
 							  <p class="text-right">売切</p>
 							<% end %>
 						</div>
