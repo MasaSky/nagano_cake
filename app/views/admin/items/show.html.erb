@@ -1,0 +1,47 @@
+<div class= "container">
+  <p id="notice"><%= notice %></p>
+  <div class= "row">
+    <div class= "col-md-5">
+      <h2>商品詳細</h2>
+      <%= attachment_image_tag(@item, :image, size: "400x300", format: 'jpeg') %>
+    </div>
+
+    <div class= "col-md-7" style="margin-top: 40px;">
+      <div class="item-group">
+        <label class="col-sm-4">商品名</label>
+        <%= @item.name %>
+      </div></br>
+
+      <div class="item-introduction">
+        <label class="col-sm-4">商品説明</label>
+          <%= @item.introduction %>
+      </div></br>
+
+      <div class="item-genres">
+         <label class="col-sm-4">ジャンル</label>
+         <%= @item.genre.name %>
+      </div></br>
+
+      <div class="item-price-group">
+        <label class="col-sm-4">
+          税込価格</br>(税抜価格)
+        </label>
+          <span class="h5">¥ <%= price(@item.price).to_s(:delimited) %> (<%= @item.price.to_s(:delimited) %>) 円</span>
+      </div></br>
+
+      <div class="product-status">
+        <label class="col-sm-4">
+          販売ステータス
+        </label>
+        <% if @item.is_active == true %>
+      	  <span class="text-success">販売中</span>
+        <% elsif @item.is_active == false %>
+      	  <span class="text-muted">販売停止中</span>
+        <% end %>
+      </div>
+      <div class="text-left" style="margin-top:60px;">
+　　　 <%= link_to "編集する", edit_admin_item_path(@item), class:"btn btn-lg btn btn-outline-success" %></td>
+　　　</div>
+    </div>
+  </div>
+</div>

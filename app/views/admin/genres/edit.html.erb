@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row flex-column">
+    <div class="col-sm-12 col-lg-3">
+      <div class="d-flex justify-content-center mb-5">
+        <h4 class="px-3">ジャンル編集</h4>
+      </div>
+    </div>
+    <div class="col-12 col-md-9 col-lg-7">
+      <%= form_with model: @genre, url: admin_genre_path, class: "d-flex align-items-center" do |f| %>
+        <div class="pl-3"><%= f.label :name, "ジャンル名", class: "small" %></div>
+        <div class="pl-5"><%= f.text_field :name, placeholder: "ジャンル名", class: "form-control" %></div>
+        <div class="ml-5"><%= f.submit "変更を保存", class: "form-control btn btn-outline-success ml-5" %></div>
+      <% end %>
+    </div>
+  </div>
+</div>

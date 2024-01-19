@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-12 mx-auto">
       <h2>商品一覧</h2>
-      <%= link_to new_admin_product_path, data: {"turbolinks" => false}, class: "d-flex justify-content-end" do %>
+      <%= link_to new_admin_items_path, data: {"turbolinks" => false}, class: "d-flex justify-content-end" do %>
         <i class="fas fa-plus-circle fa-3x plus-button"></i>
       <% end %>
 
-      <% unless @items.blank? %>
+      <% unless @products.blank? %>
         <table class='table'>
           <thead>
             <tr>
@@ -21,14 +21,13 @@
             <% @items.each do |item| %>
               <tr>
                 <td><%= item.id %></td>
-                <td><%= link_to .name, admin_item_path(item) %></td>
-
+                <td><%= link_to item.name, admin_item_path(item) %></td>
                 <td><%= item.unit_price.to_s(:delimited) %></td>
                 <td><%= item.genre.name %></td>
                 <td>
-                  <% if item.is_valid == true %>
+                  <% if item.is_active == true %>
             				<p class="text-success">販売中</p>
-            			<% elsif item.is_valid == false %>
+            			<% elsif item.is_active == false %>
             				<p class="text-muted">販売停止中</p>
             			<% end %>
                 </td>

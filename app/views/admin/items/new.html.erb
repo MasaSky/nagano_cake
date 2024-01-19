@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <h2>商品新規登録</h2></br>
+        <%= form_with model: @item, url: admin_items_path, method: :post, local:true do |f| %>
+        <%= render 'items/form_error_message', model: f.object %>
+        <%= render "form", f: f %>
+        <div class="d-flex justify-content-center">
+          <%= f.submit :新規登録, class:'btn btn-lg btn btn-outline-success' %>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</div>

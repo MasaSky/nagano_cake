@@ -1,0 +1,30 @@
+        <div class="form-group" style="display:inline-flex">
+         <%= f.label "商品画像", class:"col-3" %>
+        <span style="margin-left: 8px;"><%= f.attachment_field :image, class:"col-sm-12 form-control-file image"%></span>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px;">
+         <%= f.label "商品名", class:"col-sm-3" %>
+         <%= f.text_field :name, class:"col-sm-8" %>
+        </div></br>
+
+        <div class="form-group">
+         <%= f.label "商品説明", class:"col-sm-3" %>
+         <%= f.text_area :introduction, class:"col-sm-8", size:"10"%>
+        </div>
+
+        <div class="form-group">
+         <%= f.label "ジャンル", class:"col-sm-3" %>
+         <%= f.collection_select(:genre_id, @genres, :id, :name, prompt: "-- 選択してください --") %>
+        </div></br>
+
+        <div class="form-group">
+         <%= f.label "税抜価格", class:"col-sm-3"%>
+         <%= f.text_field :unit_price, :placeholder => "1000" %>円
+        </div></br>
+
+        <div class="form-group">
+         <%= f.label "販売ステータス", class:"col-sm-4"%>
+         <label><%= f.radio_button :is_active, "true", checked: true %> 販売中 </label>
+         <label style="margin-left: 30px;"><%= f.radio_button :is_active, "false" %> 販売停止中 </label>
+        </div>

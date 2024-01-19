@@ -2,13 +2,16 @@ class Admin::OrdersController < ApplicationController
   before_action :authenticate_admin!
   include ApplicationHelper
 
-  def index
-    @orders = Order.all.page(params[:page]).per(10)
-  end
 
   def show
-    @order = Order.find(params[:id])
-    @order_items = @order.order_items
+    @customer = Customer.find(params[:id])
+    @orders = @customer.orders
+    
+    quantity_sum = 0
+    @orders.each do |order|
+      quantity_sum += order.quantity
+    end
+    @quantity_sum = quantity_sum
   end
 
   def update
