@@ -11,18 +11,18 @@ class Public::OrdersController < ApplicationController
     @cart_items = current_customer.cart_items
     @order = Order.new(customer: current_customer, payment_method: params[:order][:payment_method])
 
-    if params[:order][:delivery_option] == "address"    #---enum 0 会員情報
+    if params[:order][:delivery_option] == "address"
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
       @order.attention = current_customer.last_name + current_customer.first_name
 
-    elsif params[:order][:delivery_option] == "shipping_address"    #---enumm 1 配送先情報
+    elsif params[:order][:delivery_option] == "shipping_address"
       ship = Delivery.find(params[:order][:delivery_id])
       @order.attention = ship.attention
       @order.postal_code = ship.postal_code
       @order.address = ship.address
 
-    elsif params[:order][:delivery_option] == "new_address"    #---enum 2 配送先新規
+    elsif params[:order][:delivery_option] == "new_address"
       @order.attention = params[:order][:attention]
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
@@ -35,12 +35,18 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
+    @order = current_customer.orders.new(order_params)
+    @order.freight = 800
+
+    @order_lists = []
+    current_customer.cart_items.each do |cart_item|
+      cart_item = CartItem.find_by(item_id: cart_item.item_id)
+      order_list = OrderItem.new(order: @order, item: cart_item.item, price: cart_item.unit_price, quantity: cart_item.quantity)
+      @order_lists << order_list
+    end
+    
     if @order.save
-      current_customer.cart_items.each do |cart_item|
-        cart_item = CartItem.find_by(item_id: cart_item.item_id)
-        OrderItem.create!(order: @order, item: cart_item.item, price: cart_item.price, quantity: cart_item.quantity)
-      end
+      @order_lists.each(&:save!)
       current_customer.cart_items.destroy_all
       redirect_to orders_complete_path
     else
@@ -66,6 +72,6 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:customer_id, :item_id, :quantity, :grand_total, delivery_id, :attention, :postal_code, :address, :payment_method)
+    params.require(:order).permit(:customer_id, :item_id, :quantity, :grand_total, :delivery_id, :attention, :postal_code, :address, :payment_method)
   end
 end

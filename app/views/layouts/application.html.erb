@@ -6,13 +6,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/56a079a110.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
+    <div class="header">
+      <%= render "layouts/header" %>
+    </div>
     <div class="content">
-
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>

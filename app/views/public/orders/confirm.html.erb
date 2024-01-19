@@ -1,0 +1,79 @@
+<% provide(:title, "注文情報確認") %>
+<div class="row">
+  <div class="col-4"></div>
+  <div class="col-4">
+    <h2 class="text-center title">注文情報入力</h2>
+  </div>
+  <div class="col-4"></div>
+</div>
+<div calss="row mx-auto">
+  <div class="col-7 mx-auto">
+    <div class="col-12">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>単価(税込)</th>
+            <th>数量</th>
+            <th>小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart_items.each do |c| %>
+            <tr>
+              <td class="text-left">
+                <%= attachment_image_tag(c.item, :image, size: "60x50", fallback: "no_image.jpg") %>
+                <%= c.item.name %>
+              </td>
+              <td class="text-right">
+                ¥<%= c.item.price.to_s(:delimited) %>-
+              </td>
+              <td class="text-right">
+                <%= c.quantity %>
+              </td>
+              <td class="text-right">
+                ¥<%= c.cart_items.sum { |ci| ci.quantity * ci.item.price }.to_s(:delimited) %>-
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4 ml-auto">
+      <table class="table table-hover table-condensed table-bordered">
+        <tr>
+          <th>送料</th>
+          <td class="text-right col-xs-5">¥<%= @order.freight %></td>
+        </tr>
+        <tr>
+          <th>商品合計</th>
+          <% subtotal_amount = @cart_items.sum { |c| c.cart_items.sum { |ci| ci.quantity * ci.item.price } } %>
+          <td class="text-right">¥<%= subtotal_amount.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <th>請求金額</th>
+          <% grand_total(@order) = subtotal_amount + @order.freight %>
+          <td class="text-right">¥<%= grand_total(@order).to_s(:delimited) %></td>
+        </tr>
+      </table>
+    </div>
+    <dl>
+      <dt>支払方法</dt>
+        <dd><%= @order.payment_method %></dd>
+      <dt>お届け先</dt>
+        <dd>〒<%= "#{@order.postal_code} #{@order.address} #{@order.attention}" %></dd>
+    </dl>
+    <div class ="my-5">
+      <%= form_with(model: @order, url: orders_path, method: :post, class: "text-center", local: true) do |f| %>
+        <%= f.hidden_field :payment_method %>
+        <%= f.hidden_field :attention %>
+        <%= f.hidden_field :postal_code %>
+        <%= f.hidden_field :address %>
+        <%= f.hidden_field :grand_total %>
+        <%= f.hidden_field :delivery, value: @delivery %>
+        <%= link_to "注文情報入力へ戻る", new_order_path, class: "btn btn-secondary btn-lg pull-left" %>
+        <%= f.submit "注文を確定する", class: "btn btn-success btn-lg" %>
+      <% end %>
+    </div>
+  </div>
+</div>

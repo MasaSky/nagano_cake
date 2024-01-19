@@ -1,21 +1,25 @@
 class ApplicationController < ActionController::Base
-    before_action :configure_authentication	#---現在のコントローラーが管理者用かどうかに基づいて適切な認証メソッド（authenticate_user! または authenticate_admin!）を呼び出
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  private
+  protected
 
-  def configure_authentication
-    if admin_controller?	#---Admin名前空間の下にあるかどうかを判定
-      authenticate_admin!
+  def after_sign_in_path_for(resource)
+    case resource
+    when Admin
+      admin_path
+    when Customer
+      customer_path
     else
-      authenticate_user! unless action_is_public?	#---コントローラーがhomesかつtopアクションではない場合にfalseが返りauthenticate_user!が実行
+      root_path
     end
   end
 
-  def admin_controller?
-    self.class.module_parent_name == 'Admin'
+  def after_sign_out_path_for(resource)
+    root_path
   end
 
-  def action_is_public?		#---特定のアクションが認証が不要かどうかを判定
-    controller_name == 'homes' && action_name == 'top'
+  def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :email, :postal_code, :address, :telphone_number])
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
   end
 end
