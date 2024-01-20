@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
-  root to: 'public/homes#top'
-  get '/about' => 'public/homes#about'
-  get '/admin' => 'admin/homes#top'
+
+  devise_for :customers, controllers: {registrations: 'public/registrations', sessions: 'public/sessions'}
+  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {sessions: "admin/sessions"}
 
   scope module: :public do
-    devise_for :customers, controllers: {registrations: 'public/registrations', sessions: 'public/sessions'}
-
-    resources :items, only: [:index, :show]
+    root to: 'homes#top'
+    get "about", to: "homes#about", as: :about
+    resources :items, only: [:index, :show] do
+      collection do
+        get 'search_word' => 'items#search_word'
+      end
+    end
     resources :customers, only: [:show, :edit, :update] do
       member do
         get 'info'
@@ -29,7 +33,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    devise_for :admin, controllers: {sessions: 'admin/sessions'}
+    root to: "homes#top"
 
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]

@@ -1,13 +1,10 @@
 class Admin::HomesController < ApplicationController
   before_action :authenticate_admin!
+  paginates_per 10
 
   def top
-    @orders = Orders.includes(:order_items, :user).all
-    @orders = @orders.paginate(page: params[:page], per_page: 10)
-
-    @order_dates = @orders.map { |order| order.created_at }
-    @order_customer_names = @orders.map { |order| order.customer_names }
-    @order_quantities = @orders.map { |order| order.order_items.sum(:quantity) }
-    @order_statuses = @orders.map { |order| order.order_status }
+    @orders = Order.page(params[:page])
+    @order_count = @orders.count
   end
+
 end

@@ -13,26 +13,26 @@
       </table>
     </div>
 
-    <div class="col-8">
+    <div class="col-9">
       <div class="d-flex">
-        <p style="font-size:35px">商品一覧</p>
-        <p style="font-size:25px; line-height: 2;">(全<%= @items.count %>件)</p>
+        <p style="font-size:35px"><%= "#{@q.name_cont}" %>一覧</p>
+        <p style="font-size:25px; line-height: 2;">(全<%= @results.count %>件)</p>
       </div>
 
       <div class="d-flex flex-wrap items_width">
-        <% @items.each do |items| %>
+        <% @results.each do |item| %>
           <div class="mx-3 my-3">
-            <%= link_to item_path(items) do %>
-            <%= image_tag items.get_item_image, size: "200x160" %>
+            <%= link_to item_path(item) do %>
+            <%= image_tag item.get_item_image, size: "200x160" %>
             <% end %><br>
-            <%= items.name %><br>
-            ¥<%= items.price %>
+            <%= item.name %><br>
+            ¥<%= number_with_delimiter item.price %>
           </div>
         <% end %>
       </div>
 
       <div class="row justify-content-center my-4">
-        
+        <%= paginate @results, theme: 'bootstrap-5' %>
       </div>
     </div>
 </div>

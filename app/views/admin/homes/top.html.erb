@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2>注文履歴一覧</h2>
+      <h2>注文履歴一覧（全<%= @order_count %>件）</h2>
 
       <table class='table'>
         <thead>
@@ -13,20 +13,19 @@
           </tr>
         </thead>
         <tbody>
+          <% if order.present? %>
           <% @orders.each do |o| %>
             <tr>
               <td><%= link_to o.created_at.strftime('%Y/%m/%d %H:%M:%S'), admin_order_path(order) %></td>
               <td><%= o.name %></td>
-              <td><%= o.order_items.count %></td>
+              <td><%= o.order_items.where(order_id: o.id).sum(:quantity) %></td>
               <td><%= o.order_status %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
 
-      <div class= "d-flex justify-content-center">
-        <%= paginate @orders %>
-      </div>
+      <div class="col-md-5 mx-auto"><%= paginate @orders, theme: 'bootstrap-5' %></div>
     </div>
   </div>
 </div>
