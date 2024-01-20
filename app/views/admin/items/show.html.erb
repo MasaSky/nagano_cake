@@ -3,7 +3,7 @@
   <div class= "row">
     <div class= "col-md-5">
       <h2>商品詳細</h2>
-      <%= attachment_image_tag(@item, :image, size: "400x300", format: 'jpeg') %>
+      <%= image_tag @item.image, size: "400x300" %>
     </div>
 
     <div class= "col-md-7" style="margin-top: 40px;">
@@ -26,7 +26,7 @@
         <label class="col-sm-4">
           税込価格</br>(税抜価格)
         </label>
-          <span class="h5">¥ <%= price(@item.price).to_s(:delimited) %> (<%= @item.price.to_s(:delimited) %>) 円</span>
+          <span class="h5"><%= @item.unit_price.to_s(:delimited) %>円</span>
       </div></br>
 
       <div class="product-status">

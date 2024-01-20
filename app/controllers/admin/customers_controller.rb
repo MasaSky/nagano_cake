@@ -3,7 +3,6 @@ class Admin::CustomersController < ApplicationController
 
   def index
     @customers = Customer.all
-    @customers = Customer.paginate(page: params[:page], per_page: 10)
   end
 
   def show

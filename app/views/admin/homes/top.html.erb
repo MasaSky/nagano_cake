@@ -1,31 +1,27 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <h2>注文履歴一覧（全<%= @order_count %>件）</h2>
-
-      <table class='table'>
-        <thead>
-          <tr>
-            <th>購入日時</th>
-            <th>購入者</th>
-            <th>注文個数</th>
-            <th>注文ステータス</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if order.present? %>
-          <% @orders.each do |o| %>
-            <tr>
-              <td><%= link_to o.created_at.strftime('%Y/%m/%d %H:%M:%S'), admin_order_path(order) %></td>
-              <td><%= o.name %></td>
-              <td><%= o.order_items.where(order_id: o.id).sum(:quantity) %></td>
-              <td><%= o.order_status %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-
-      <div class="col-md-5 mx-auto"><%= paginate @orders, theme: 'bootstrap-5' %></div>
-    </div>
+   <div class="col-md-12">
+     <h2>注文履歴一覧（全<%= @order_count %>件）</h2>
+    <table class='table'>
+     <thead>
+      <tr>
+       <th>購入日時</th>
+       <th>購入者</th>
+       <th>注文個数</th>
+       <th>注文ステータス</th>
+      </tr>
+     </thead>
+     <tbody>
+     <% @orders.each do |o| %>
+       <tr>
+        <td><%= link_to o.created_at.strftime('%Y/%m/%d %H:%M:%S'), admin_orders_path(o) %></td>
+        <td><%= o.name %></td>
+        <td><%= o.order_items.where(order_id: o.id).sum(:quantity) %></td>
+        <td><%= o.status %></td>
+       </tr>
+     <% end %>
+     </tbody>
+    </table>
+   </div>
   </div>
 </div>

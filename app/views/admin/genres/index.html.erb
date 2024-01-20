@@ -1,34 +1,38 @@
 <div class="container">
-  <div class="row flex-column">
-    <div class="col-sm-12 col-lg-6">
-      <div class="d-flex justify-content-center mb-5">
-        <h4 class="px-3">ジャンル一覧・追加</h4>
+  <div class="mt-4">
+    <div class="col-md-8">
+
+      <h2>ジャンル一覧・追加</h2>
+      <div class="mt-4">
+
+        <%= form_with model: @genre, url: admin_genres_path, local:true do |f| %>
+          <%= f.label :name, 'ジャンル名' %>
+          <%= f.text_field :name %>
+          <%= f.submit '新規作成', class:"btn btn-sm btn-success" %>
+        <% end %>
       </div>
-    </div>
-    <div class="col-12 col-md-9 col-lg-7">
-      <%= form_with model: @genre, url: admin_genres_path, class: "d-flex align-items-center" do |f| %>
-        <div class="pl-3"><%= f.label :name, "ジャンル名", class: "small" %></div>
-        <div class="pl-5"><%= f.text_field :name, placeholder: "ジャンル名", class: "form-control" %></div>
-        <div class="ml-5"><%= f.submit "新規登録", class: "form-control btn btn-outline-success ml-5" %></div>
-      <% end %>
-    </div>
-    <div class="col-sm-12 col-lg-6">
-      <table class="table mt-5">
-        <thead>
-          <tr class="light-gray">
-            <th class="pl-5">ジャンル</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody class="genre">
-          <% @genres.each do |genre| %>
+
+      <div class="col-8 mt-4">
+        <table class="table">
+          <thead class="table-secondary">
             <tr>
-              <td class="align-middle"><%= genre.name %></td>
-              <td><%= link_to "編集する", edit_admin_genre_path(genre.id), class: "btn btn-outline-success float-right" %></td>
+              <th>ジャンル</th>
+              <th></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% if @genres.present? %>
+            <% @genres.each do |genre| %>
+            <tr>
+              <td><p><%= genre.name %></p></td>
+              <td><%= link_to '編集', edit_admin_genre_path(genre.id), class: "btn btn-success" %></td>
+            </tr>
+            <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 </div>

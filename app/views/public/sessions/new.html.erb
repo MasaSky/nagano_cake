@@ -7,7 +7,7 @@
     <% end %>
     <h4>会員の方はこちらからログイン</h4>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= form_for(resource, as: resource, url: session_path(resource)) do |f| %>
       <%= render "public/shared/error_messages", resource: resource %>
       <div class="field form-group col-xs-12">
         <%= f.label :"メールアドレス", class: "col-sm-3 control-label" %>
@@ -26,9 +26,6 @@
         </div>
       <% end %>
 
-      <div class="col-xs-6">
-        <%= link_to "パスワードを忘れた方はこちら", new_password_path(resource_name), class: "btn-link" %>
-      </div>
       <div class="actions col-xs-9">
         <%= f.submit "ログイン", class: "btn btn-primary col-xs-7 my-3" %>
       </div>

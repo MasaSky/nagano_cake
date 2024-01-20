@@ -8,10 +8,13 @@ class Customer < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :deliveries, dependent: :destroy
 
-  validates :last_name, :first_name, :last_name_kana, :first_name_kana, :address, :telphone_number, presence: true
-  validates :postal_code, length: { is: 7 }, numericality: { only_integer: true }
-  validates :telphone_number, length: { in: 10..11 }, numericality: { only_integer: true }
-  validates :last_name_kana, :first_name_kana, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: "カタカナで入力して下さい。"}
+  validates :last_name, presence: true
+  validates :first_name, presence: true
+  validates :last_name_kana, presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: "カタカナで入力して下さい。"}
+  validates :first_name_kana, presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: "カタカナで入力して下さい。"}
+  validates :address, presence: true
+  validates :postal_code, presence: true, length: { is: 7 }, numericality: { only_integer: true }
+  validates :telphone_number, presence: true, length: { in: 10..11 }, numericality: { only_integer: true }
 
   def active_for_authentication?
     super && (self.is_deleted == false)
