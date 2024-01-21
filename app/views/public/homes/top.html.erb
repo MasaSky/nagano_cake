@@ -34,12 +34,12 @@
 			<div class="new-product-box">
 				<h3 class="text-center new-product">新着商品</h3>
 				<div class="d-flex felx-wrap justify-content-around">
-					<% @items.first(4).each do |item| %>
+					<% @items.each do |item| %>
 						<div>
 							<%= link_to item_path(item) do %>
-							  <%= attachment_image_tag(item, :image, size: "180x130", fallback: "no_image.jpg", class: "new-item-img") %>
+							  <%= image_tag item.image, size: "180x130", fallback: "no_image.jpg", class: "new-item-img" %>
 							<% end %>
-							<p class="text-center product-name"><%= link_to item.name, item_path(item), id: "item_link", class: "item-name-link" %></p>
+							<p class="text-center item-name"><%= link_to item.name, items_path(item), class: "item-name-link" %></p>
 
 							<% if item.is_active == true %>
 							  <p class="text-right">¥<%= item.price.to_s(:delimited) %></p>

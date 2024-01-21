@@ -20,19 +20,19 @@
       </div>
 
       <div class="d-flex flex-wrap items_width">
-        <% @items.each do |items| %>
+        <% @items.each do |item| %>
           <div class="mx-3 my-3">
-            <%= link_to item_path(items) do %>
-            <%= image_tag items.get_item_image, size: "200x160" %>
+            <%= link_to items_path(item) do %>
+            <%= image_tag item.image, size: "200x160", fallback: "no_image.jpg", class: "new-item-img" %>
             <% end %><br>
-            <%= items.name %><br>
-            ¥<%= items.price %>
+            <%= item.name %><br>
+            ¥<%= item.unit_price %>
           </div>
         <% end %>
       </div>
 
       <div class="row justify-content-center my-4">
-        
+
       </div>
     </div>
 </div>

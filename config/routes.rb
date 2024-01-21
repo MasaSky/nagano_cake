@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :show] do
       collection do
         get 'search_word' => 'items#search_word'
+        get 'search_genress' => 'items#search_genres'
       end
     end
     resources :customers, only: [:show, :edit, :update] do

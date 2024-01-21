@@ -2,7 +2,7 @@
 <% @genres.each do |g| %>
   <tr>
     <td>
-      <%= link_to g.genre, searches_path(g: g.genre, model: "g"), class: "text-dark text-decoration-none" %>
+      <%= link_to g.name, items_path(g), class: "text-dark text-decoration-none" %>
     </td>
   </tr>
 <% end %>
