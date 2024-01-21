@@ -15,7 +15,7 @@
 
     <div class="col-9">
       <div class="d-flex">
-        <p style="font-size:35px"><%= @search_genre %>一覧</p>
+        <p style="font-size:35px"><%= @genre.name %>一覧</p>
         <p style="font-size:25px; line-height: 2;">(全<%= @items.count %>件)</p>
       </div>
 
@@ -23,16 +23,13 @@
         <% @items.each do |item| %>
           <div class="mx-3 my-3">
             <%= link_to item_path(item) do %>
-            <%= image_tag item.get_item_image, size: "200x160" %>
+            <%= image_tag item.image, size: "200x160" %>
             <% end %><br>
             <%= item.name %><br>
-            ¥<%= number_with_delimiter item.price %>
+            ¥<%= number_with_delimiter item.unit_price %>
           </div>
         <% end %>
       </div>
 
-      <div class="row justify-content-center my-4">
-        <%= paginate @items, theme: 'bootstrap-5' %>
-      </div>
     </div>
 </div>

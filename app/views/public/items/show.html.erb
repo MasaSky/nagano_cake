@@ -1,7 +1,7 @@
 <div class= "container">
   <div class= "row product-show">
     <div class= "col-md-6 col-md-offset-1 d-flex justify-content-center">
-      <% if @item.is_valid == true %>
+      <% if @item.is_active == true %>
         <%= image_tag @item.image, size: "400x300", format: 'jpeg' ,fallback: "no_image.jpg", class: "rounded" %>
       <% else %>
         <div class="sold-out-lg">
@@ -19,13 +19,13 @@
       </div>
 
       <div class="item-price">
-        ¥ <%= tax_price(@item.unit_price).to_s(:delimited) %> (税込)
+        ¥ <%= number_to_currency((Float(@item.unit_price) * 1.08), precision: 0) %> (税込)
       </div>
 
       <% if customer_signed_in? %>
     　　<%= form_with( model: [@item, @cart_item], url: cart_items_path, method: :post, local:true) do |f| %>>
           <%= f.hidden_field :item_id, value: @item.id %>
-          <% if @item.is_valid == true %>
+          <% if @item.is_active == true %>
   　　　       <span  class="d-flex justify-content-start"><%= f.select :quantity, options_for_select(1..10), include_blank: "個数選択" %><span>
   　　　       <%= f.submit "カートに入れる", class:"btn btn-outline-success" %>
   　　　     <% else %>

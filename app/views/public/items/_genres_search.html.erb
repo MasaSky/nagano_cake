@@ -1,9 +1,9 @@
 <% if genres.present? %>
 <% @genres.each do |g| %>
-  <tr>
-    <td>
-      <%= link_to g.name, items_path(g), class: "text-dark text-decoration-none" %>
-    </td>
-  </tr>
+ <tr>
+  <td>
+   <%= link_to g.name, items_path, class: "text-dark text-decoration-none" %>
+  </td>
+ </tr>
 <% end %>
 <% end %>

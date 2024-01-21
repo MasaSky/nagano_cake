@@ -9,14 +9,14 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :show] do
       collection do
         get 'search_word' => 'items#search_word'
-        get 'search_genress' => 'items#search_genres'
+        get 'search_genres' => 'items#search_genres', as: 'genres'
       end
     end
     resources :customers, only: [:show, :edit, :update] do
       member do
-        get 'info'
-        get 'quit'
-        patch 'deactive'
+        get 'info' => 'customers#info'
+        get 'quit' => 'customers#quit'
+        patch 'deactive' => 'customers#deactive'
       end
     end
     resources :deliveries, only: [:index, :create, :edit, :update, :destroy]
@@ -27,8 +27,8 @@ Rails.application.routes.draw do
     end
     resources :orders, only: [:new, :create, :index, :show] do
       collection do
-        post 'confirm'
-        get 'complete'
+        post 'confirm' => 'orders#confirm'
+        get 'complete' => 'orders#complete'
       end
     end
   end

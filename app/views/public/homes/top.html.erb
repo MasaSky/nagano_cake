@@ -42,7 +42,7 @@
 							<p class="text-center item-name"><%= link_to item.name, items_path(item), class: "item-name-link" %></p>
 
 							<% if item.is_active == true %>
-							  <p class="text-right">¥<%= item.price.to_s(:delimited) %></p>
+							  <p class="text-right">¥<%= number_to_currency((Float(item.unit_price) * 1.08), precision: 0) %> (税込)</p>
 							<% elsif item.is_active == false %>
 							  <p class="text-right">売切</p>
 							<% end %>

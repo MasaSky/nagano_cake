@@ -18,11 +18,11 @@ class Public::CustomersController < ApplicationController
     end
   end
 
-  def info    #--- GET /customers/:id/info
+  def info
     @customer = current_customer
   end
 
-  def quit    #--- GET /customers/:id/quit
+  def quit
     @customer = current_customer
   end
 
