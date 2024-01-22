@@ -5,13 +5,10 @@ Rails.application.routes.draw do
 
   scope module: :public do
     root to: 'homes#top'
-    get "about", to: "homes#about", as: :about
-    resources :items, only: [:index, :show] do
-      collection do
-        get 'search_word' => 'items#search_word'
-        get 'search_genres' => 'items#search_genres', as: 'genres'
-      end
-    end
+    get "about" => "homes#about", as: :about
+    get 'search_genres' => 'items#search_genres', as: 'genres'
+    get 'search_word' => 'items#search_word', as: 'search'
+    resources :items, only: [:index, :show]
     resources :customers, only: [:show, :edit, :update] do
       member do
         get 'info' => 'customers#info'

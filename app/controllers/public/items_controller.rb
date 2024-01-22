@@ -12,12 +12,15 @@ class Public::ItemsController < ApplicationController
 
   def search_word
     @genres = Genre.all
-    @q = Search.ransack(params[:q])
-    @results = @q.result(distinct: true)
+    @q = Item.ransack(params[:q])
+    @result = params[:q]
+    @items = items.all
   end
 
+
   def search_genres
-    @genre = Genre.find(params[:id])
-    @items = @genre.items.all
+    @genres = Genre.all
+    @genre_name = params[:name]
+    @items = Genre.find_by(name: @genre_name).items
   end
 end

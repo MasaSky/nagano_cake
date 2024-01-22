@@ -39,7 +39,7 @@
       </div>
     <% end %>
       <div class="d-flex justify-content-end">
-        <%= render 'public/items/words_search' %>
+        <%= render 'public/items/words_search', q: @q, url: items_path %>
       </div>
    </div>
   </nav>
