@@ -12,9 +12,6 @@ class Public::ItemsController < ApplicationController
 
   def search_word
     @genres = Genre.all
-    @q = Item.ransack(params[:q])
-    @result = params[:q]
-    @items = items.all
   end
 
 
