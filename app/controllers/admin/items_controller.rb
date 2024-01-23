@@ -14,7 +14,7 @@ class Admin::ItemsController < ApplicationController
     @genres = Genre.all
     if @item.save
       flash[:notice] = "商品を登録しました"
-      redirect_to admin_item_path(@item.id)
+      redirect_to admin_item_path(@item)
     else
       render :new
     end
@@ -32,7 +32,7 @@ class Admin::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     if @item.update(item_params)
       flash[:notice] = "商品を更新しました"
-      redirect_to admin_item_path(@item.id)
+      redirect_to admin_item_path(@item)
     else
       render :edit
     end

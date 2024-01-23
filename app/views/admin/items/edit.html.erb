@@ -4,7 +4,8 @@
     <h2>商品編集</h2>
     <div class="col-md-8 mt-4">
       <table class="table table-borderless">
-        <%= form_with model: @item, url: admin_item_path(@item.id), method: :patch, local:true do |f| %>
+        <%= form_with model: @item, url: admin_item_path(@item), local:true do |f| %>
+        <%= render 'layouts/form_error_messages', model: f.object %>
           <tr>
             <td>商品画像</td>
             <td><%= f.file_field :image, accept: "image/*" %></td>
