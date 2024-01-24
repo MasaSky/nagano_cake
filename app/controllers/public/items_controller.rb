@@ -6,14 +6,13 @@ class Public::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @cart_item=CartItem.new
+    @cart_item = CartItem.new
     @genres = Genre.all
   end
 
   def search_word
     @genres = Genre.all
   end
-
 
   def search_genres
     @genres = Genre.all

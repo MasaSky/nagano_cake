@@ -5,9 +5,9 @@ class Item < ApplicationRecord
   has_many :orders
   has_many :order_items
 
-  validates :genre_id, :name, :unit_price, presence: true
+  validates :genre_id, :name, presence: true
   validates :introduction, length: { maximum: 200 }, presence: true
-  validates :unit_price, numericality: { only_integer: true }
+  validates :unit_price, numericality: { only_integer: true }, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
     %w[name introduction]
@@ -19,8 +19,6 @@ class Item < ApplicationRecord
 
   def price
     tax = 1.08
-    (price*tax).floor
+    (unit_price*tax).floor
   end
-
-
 end

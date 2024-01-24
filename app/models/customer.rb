@@ -20,6 +20,10 @@ class Customer < ApplicationRecord
     super && (self.is_active == true)
   end
 
+  def address_display
+	  "〒#{postal_code}" + address + last_name + first_name
+  end
+
   def self.looks(word)
     @customer = Customer.where("last_name LIKE?","%#{word}%")
   end

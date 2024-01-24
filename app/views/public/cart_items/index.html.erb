@@ -6,8 +6,9 @@
     </div>
     <div class="col-5"></div>
     <div class="col-3">
+      <
       <% unless @cart_items.empty? %>
-        <%= link_to "カートを空にする", cart_item_destroy_all_path(@cart_items), method: :delete, class: "btn btn-danger" %>
+        <%= link_to "カートを空にする", destroy_all_cart_items_path(@cart_items), method: :delete, class: "btn btn-danger" %>
       <% end %>
     </div>
   </div>
@@ -33,7 +34,7 @@
             </td>
             <td style="width: 100px;">
               <div style="margin: 17px 0 0 15px;">
-               <%= number_to_currency((Float(cart.item.unit_price) * 1.08), precision: 0) %>
+               <%= number_with_delimiter cart.item.price %>
               </div>
             </td>
 
@@ -46,15 +47,15 @@
 
             <td style="width: 80px;">
               <div style="margin: 17px 0 0 15px;">
-                <%= form_with model: cart_item do |f| %>
-                  <%= f.select :quantity, cart_item.quantity_options, {selected: cart_item.quantity}, {class: "select"} %>
+                <%= form_with model: cart do |f| %>
+                  <%= f.select :quantity, cart.quantity_options, {selected: cart.quantity}, {class: "select"} %>
                   <%= f.submit "変更", class: "btn btn-success btn-sm" %>
                 <% end %>
               </div>
             </td>
             <td style="width: 100px;">
               <div style="margin: 17px 0 0 15px;">
-               <%= number_with_delimiter cart.sub_total %>
+               <%= number_with_delimiter cart.subtotal %>
               </div>
             </td>
             <td style="width: 100px;">
@@ -78,7 +79,7 @@
             <tr style="font-size: 18px">
               <td style="background-color: #EEEEEE;">合計金額</td>
               <td>
-                <%= number_with_delimiter @price %>
+                <%= number_with_delimiter @total_amount %>
               </td>
             </tr>
           </tbody>

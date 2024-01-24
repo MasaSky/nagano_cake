@@ -3,12 +3,9 @@ class Public::CartItemsController < ApplicationController
   include ApplicationHelper
 
   def index
-    @cart_items = current_customer.cart_items
-    if @cart_items.present?
-       @subtotal = total_amount(@cart_items)
-    else
-       @subtotal = 0
-    end
+    @cart_items = current_customer.cart_items.all
+    @cart_item = CartItem.new
+    @total_amount = CartItem.total_amount(current_customer)
   end
 
   def create
@@ -16,11 +13,11 @@ class Public::CartItemsController < ApplicationController
     if @cart_item.present?
       @cart_item.quantity += params[:cart_item][:quantity].to_i
       @cart_item.save
-      flash[:notice] = "数量を変更しました"
+      flash[:notice_1] = "数量を変更しました"
     else
       @cart_item = CartItem.new(cart_item_params)
       @cart_item.save
-      flash[:notice] = "商品をカートにいれました"
+      flash[:notice_] = "商品をカートにいれました"
     end
     redirect_to cart_items_path
   end
@@ -32,12 +29,12 @@ class Public::CartItemsController < ApplicationController
 
   def destroy
     CartItem.find(params[:id]).destroy
-　　flash[:notice] = "カートから１商品を削除しました"
     redirect_to cart_items_path
   end
 
-  def destroy_all    #--- DELETE /cart_items/cart_items
-    CartItem.destroy_all(current_customer.id)
+  def destroy_all
+    @cart_items = current_customer.cart_items.all
+    @cart_items.destroy_all
     flash[:notice] = 'カートを空にしました'
     redirect_to cart_items_path
   end

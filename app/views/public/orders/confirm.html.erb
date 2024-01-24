@@ -22,7 +22,7 @@
           <% @cart_items.each do |c| %>
             <tr>
               <td class="text-left">
-                <%= attachment_image_tag(c.item, :image, size: "60x50", fallback: "no_image.jpg") %>
+                <%= image_tag c.item.image, size: "60x50" %>
                 <%= c.item.name %>
               </td>
               <td class="text-right">
@@ -32,7 +32,7 @@
                 <%= c.quantity %>
               </td>
               <td class="text-right">
-                ¥<%= c.cart_items.sum { |ci| ci.quantity * ci.item.price }.to_s(:delimited) %>-
+                ¥<%= c.subtotal %>-
               </td>
             </tr>
           <% end %>
@@ -47,13 +47,11 @@
         </tr>
         <tr>
           <th>商品合計</th>
-          <% subtotal_amount = @cart_items.sum { |c| c.cart_items.sum { |ci| ci.quantity * ci.item.price } } %>
-          <td class="text-right">¥<%= subtotal_amount.to_s(:delimited) %></td>
+          <td class="text-right">¥<%= @total_amount %></td>
         </tr>
         <tr>
           <th>請求金額</th>
-          <% grand_total(@order) = subtotal_amount + @order.freight %>
-          <td class="text-right">¥<%= grand_total(@order).to_s(:delimited) %></td>
+          <td class="text-right">¥<%= @grand_total %></td>
         </tr>
       </table>
     </div>

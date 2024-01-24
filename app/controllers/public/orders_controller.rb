@@ -8,46 +8,42 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-    @cart_items = current_customer.cart_items
-    @order = Order.new(customer: current_customer, payment_method: params[:order][:payment_method])
-
-    if params[:order][:delivery_option] == "address"
+    @order = Order.new(order_params)
+    if params[:order][:delivery_option] == '0'
+      @order.attention = current_customer.last_name + current_customer.first_name
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.attention = current_customer.last_name + current_customer.first_name
 
-    elsif params[:order][:delivery_option] == "shipping_address"
+    elsif params[:order][:delivery_option] == '1'
       ship = Delivery.find(params[:order][:delivery_id])
       @order.attention = ship.attention
       @order.postal_code = ship.postal_code
       @order.address = ship.address
 
-    elsif params[:order][:delivery_option] == "new_address"
+    elsif params[:order][:delivery_option] == '2'
       @order.attention = params[:order][:attention]
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
-
-      unless @order.valid? == true
-        @deliveries = Delivery.where(customer: current_customer)
-        render :new
-      end
     end
+     @cart_items = current_customer.cart_items.all
+     @total_amount = CartItem.total_amount(current_customer)
+     @grand_total = CartItem.total_amount(current_customer) + @order.freight
+     render :confirm
   end
 
   def create
-    @order = current_customer.orders.new(order_params)
-    @order.freight = 800
-
-    @order_lists = []
-    current_customer.cart_items.each do |cart_item|
-      cart_item = CartItem.find_by(item_id: cart_item.item_id)
-      order_list = OrderItem.new(order: @order, item: cart_item.item, price: cart_item.unit_price, quantity: cart_item.quantity)
-      @order_lists << order_list
-    end
-    
+    @order = Order.new(order_params)
     if @order.save
-      @order_lists.each(&:save!)
-      current_customer.cart_items.destroy_all
+      @cart_items = current_customer.cart_items.all
+      @cart_items.each do |cart_item|
+      @order_items = OrderItem.new
+      @order_items.order_id = @order.id
+      @order_items.item_id = cart_item.item.id
+      @order_items.price = cart_item.item.price
+      @order_items.quantity = cart_item.quantity
+      @order_items.product_status = 0
+      @order_items.save
+    end
       redirect_to orders_complete_path
     else
       render :new
@@ -72,6 +68,6 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:customer_id, :item_id, :quantity, :grand_total, :delivery_id, :attention, :postal_code, :address, :payment_method)
+    params.require(:order).permit(:customer_id, :attention, :postal_code, :address, :freight, :grand_total, :payment_method, :order_status)
   end
 end

@@ -22,7 +22,7 @@
       <div class="d-flex flex-wrap items_width">
         <% @items.each do |item| %>
           <div class="mx-3 my-3">
-            <%= link_to items_path(item) do %>
+            <%= link_to item_path(item) do %>
             <%= image_tag item.image, size: "200x160", fallback: "no_image.jpg", class: "new-item-img" %>
             <% end %><br>
             <%= item.name %><br>

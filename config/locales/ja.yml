@@ -3,7 +3,19 @@ ja:
     order:
       payment_method:
         credit_card: "クレジットカード"
-        transfer: "銀行振込"
+        bank_transfer: "銀行振込"
+      order_status:
+        awaiting_payment: "入金待ち"
+        order_cancelled: "注文キャンセル"
+        order_confirmed: "注文確定"
+        order_completed: "注文完了"
+    order_item:
+      product_status:
+        unable: "製作不可"
+        in_preparing: "製作待ち"
+        under_production: "製作中"
+        in_shipping: "出荷準備中"
+        shipped: "発送済み"
   activerecord:
     errors:
       messages:

@@ -1,21 +1,19 @@
 <% provide(:title, "ホーム") %>
-<div class="container">
-		<div id="carouselExampleIndicators" class="carousel slide mx-auto slide-box rounded mx-auto" data-ride="carousel">
+<div class="container mt-5">
+
+	<div class="row mx-auto">
+		<div id="carouselExampleIndicators" class="carousel slide-box mx-auto" data-ride="carousel">
 		  <ol class="carousel-indicators">
 		    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 		    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 		    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 		  </ol>
 		  <div class="carousel-inner">
-		    <div class="carousel-item active">
-		    	<%= image_tag 'no_image.jpg', alt: 'First slide', class: 'slide-image' %>
-		    </div>
-		    <div class="carousel-item">
-		      <%= image_tag 'no_image.jpg', alt: 'Second slide', class: 'slide-image' %>
-		    </div>
-		    <div class="carousel-item">
-		      <%= image_tag 'no_image.jpg', alt: 'Third slide', class: 'slide-image' %>
-		    </div>
+				<% @items.each do |it| %>
+				  <div class="carousel-item <%= it == @items.first ? 'active' : '' %>">
+			  	  <%= image_tag it.image, size: "620x400", alt: it.name, class: 'slide-image' %>
+				  </div>
+				<% end %>
 		  </div>
 		  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -26,14 +24,13 @@
 		    <span class="sr-only">Next</span>
 		  </a>
 		</div>
-	<div class="row mx-auto">
 	</div>
 
-	<div class="row">
-		<div class="col-12 mx-auto">
-			<div class="new-product-box">
-				<h3 class="text-center new-product">新着商品</h3>
-				<div class="d-flex felx-wrap justify-content-around">
+	<div class="row mt-5">
+		<div class="col-12">
+			<div class="new-item-box">
+				<h3 >新着商品</h3>
+				<div class="d-flex felx-wrap justify-content-around mt-3">
 					<% @items.each do |item| %>
 						<div>
 							<%= link_to item_path(item) do %>
@@ -49,8 +46,9 @@
 						</div>
 					<% end %>
 				</div>
-				<%= link_to "全ての商品を見る >", items_path, class: "float-right btn fas fa-cheese products-link" %>
+				<%= link_to "全ての商品を見る >", items_path, class: "float-right btn fas fa-cheese products-link mt-2" %>
 			</div>
 		</div>
 	</div>
+
 </div>

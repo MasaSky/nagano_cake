@@ -42,7 +42,7 @@
 
   <div class="row mt-3 mb-5">
     <div class="col-2 offset-1"></div>
-    <div class="col-3" style="font-size: 22px; color: red;"><%= flash[:notice] %></div>
+    <div class="col-3" style="font-size: 22px; color: red;"><%= flash[:notice_1] %></div>
     <div class="col-1" style="text-align: center; padding: 2px 0 200px 40px;">
       <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
       <%= f.hidden_field :item_id, :value => @item.id %>
