@@ -34,12 +34,12 @@
       email: "test#{n + 1}@test.com",
       last_name: "会員#{n + 1}",
       first_name: "情報#{n + 1}",
-      last_name_kana: "カイイン#{n + 1}",
-      first_name_kana: "ジョウホウ#{n + 1}",
+      last_name_kana: "カイイン",
+      first_name_kana: "ジョウホウ",
       postal_code: "1111111",
       password: "a12345#{n + 1}",
       address: "会員住所#{n + 1}",
-      telphone_number: "0120000#{n + 1}",
+      telphone_number: "012000000#{n + 1}",
       is_active: true
     )
   end
