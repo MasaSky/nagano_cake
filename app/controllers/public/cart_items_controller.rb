@@ -1,15 +1,18 @@
 class Public::CartItemsController < ApplicationController
   before_action :authenticate_customer!
-  before_action :setup_cart_item!, only: [:update, :create, :destroy, :destroy_all]
   include ApplicationHelper
 
   def index
     @cart_items = current_customer.cart_items
-    @total_amount = @cart_items.inject(0) { |sum, cart_item| sum + cart_item.price }
+    if @cart_items.present?
+       @subtotal = total_amount(@cart_items)
+    else
+       @subtotal = 0
+    end
   end
 
   def create
-    @cart_item = current_customer.cart_items.find_by(item_id: params[:cart_item][:item_id])
+    @cart_item = current_customer.cart_items.new(cart_item_params)
     if @cart_item.present?
       @cart_item.quantity += params[:cart_item][:quantity].to_i
       @cart_item.save
@@ -22,9 +25,13 @@ class Public::CartItemsController < ApplicationController
     redirect_to cart_items_path
   end
 
-  def destroy    #--- DELETE /cart_items/:id
-    cart_item = CartItem.find(params[:id])
-    cart_item.destroy
+  def update
+    CartItem.find_by(id: params[:id]).update(cart_item_params)
+    redirect_to cart_items_path
+  end
+
+  def destroy
+    CartItem.find(params[:id]).destroy
 　　flash[:notice] = "カートから１商品を削除しました"
     redirect_to cart_items_path
   end

@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     get 'search_word' => 'items#search_word', as: 'search'
     resources :items, only: [:index, :show]
     resources :customers, only: [:show, :edit, :update] do
-      member do
-        get 'info' => 'customers#info'
+      collection do
+        get 'info' => 'customers#show', as: 'info'
         get 'quit' => 'customers#quit'
         patch 'deactive' => 'customers#deactive'
       end

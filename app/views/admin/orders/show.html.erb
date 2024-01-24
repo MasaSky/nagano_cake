@@ -12,18 +12,20 @@
           </tr>
         </thead>
         <tbody>
-          <% @orders.each do |order| %>
+          <% if @orders.present? %>
+          <% @orders.each do |o| %>
             <tr>
-              <td><%= link_to order.created_at.strftime('%Y/%m/%d %H:%M:%S'), admin_order_path(order) %></td>
+              <td><%= link_to o.created_at.strftime('%Y/%m/%d %H:%M:%S'), admin_order_path(o) %></td>
               <td><%= quantity_sum %></td>
-              <td><%= order.order_status %></td>
+              <td><%= o.order_status %></td>
             </tr>
+          <% end %>
           <% end %>
         </tbody>
       </table>
 
       <div class= "d-flex justify-content-center">
-        <%= paginate @orders %>
+
       </div>
     </div>
   </div>

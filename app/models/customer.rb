@@ -17,7 +17,7 @@ class Customer < ApplicationRecord
   validates :telphone_number, presence: true, length: { in: 10..11 }, numericality: { only_integer: true }
 
   def active_for_authentication?
-    super && (self.is_deleted == false)
+    super && (self.is_active == true)
   end
 
   def self.looks(word)

@@ -12,8 +12,8 @@
     <% if customer_signed_in? %>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto navbar-light">
-          <li class="customer_name mr-4">ようこそ、<%= full_name(current_customer) %>さん！</li>
-          <li><%= link_to "マイページ", customers_path, class: "btn fas fa-child" %></li>
+          <li class="customer_name mr-4">ようこそ、<%= "#{current_customer.last_name} #{current_customer.first_name}" %>さん！</li>
+          <li><%= link_to "マイページ", info_customers_path, class: "btn fas fa-child" %></li>
           <li><%= link_to "商品一覧",   items_path, class: "btn fas fa-cheese" %></li>
           <li><%= link_to "カート",     cart_items_path, class: "btn fas fa-shopping-cart" %></li>
           <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "btn fas fa-sign-out-alt" %></li>

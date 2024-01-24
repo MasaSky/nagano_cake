@@ -1,39 +1,26 @@
-<div class="row">
-  <div class="col-2"></div>
-    <h4 class="bg-light title">配送先編集</h4>
-</div>
-
-<div class="row edit-delivery-form">
-  <div class="col-2"></div>
-  <div>
-    <%= form_with( model:@delivery, url: delivery_path, local:true) do |f| %>
-      <table class="table table-bordered">
-        <tbody>
+<div class="container" style="margin-bottom: 220px;">
+  <div class="row">
+    <div class="col">
+      <h4>配送先編集</h4>
+      <table class="table table-borderless">
+        <%= form_with model:@delivery, method: :patch do |f| %>
           <tr>
-            <th>郵便番号（ハイフンなし）</th>
-            <td><%= f.text_field :postal_code, autofocus: true, id:"inputName", class: "form-control" %></td>
+            <th>郵便番号(ハイフン無し)</th>
+            <td><%= f.text_field:postal_code %></td>
           </tr>
           <tr>
             <th>住所</th>
-            <td><%= f.text_field :address, autofocus: true, id:"inputName", size: "60x20", class: "form-control" %></td>
+            <td><%= f.text_field :address, size: "65x5" %></td>
           </tr>
           <tr>
-            <th>宛先</th>
-            <td class="form-group"><%= f.text_field :attention, autofocus: true, id:"inputName", class: "form-control" %></td>
-            <td><%= f.submit "編集内容を保存", class: "btn btn-outline-success" %></td>
+            <th>宛名</th>
+            <td><%= f.text_field :attention %></td>
           </tr>
-        </tbody>
+          <tr>
+            <th><%= f.submit "変更内容を保存", class:"btn btn-success" %></th>
+          </tr>
+        <% end %>
       </table>
-    <% end %>
-  </div>
-  <div class="col-2"></div>
-</div>
-
-<div class="row mx-auto">
-  <div class="col-2"></div>
-  <% if flash[:alert].present? %>
-    <div class="alert alert-danger">
-      <%= flash[:alert] %>
     </div>
-  <% end %>
+  </div>
 </div>

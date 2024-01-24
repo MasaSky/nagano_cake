@@ -16,4 +16,11 @@ class Item < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     []
   end
+
+  def price
+    tax = 1.08
+    (price*tax).floor
+  end
+
+
 end

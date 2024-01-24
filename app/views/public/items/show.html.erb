@@ -1,39 +1,57 @@
-<div class= "container">
-  <div class= "row product-show">
-    <div class= "col-md-6 col-md-offset-1 d-flex justify-content-center">
-      <% if @item.is_active == true %>
-        <%= image_tag @item.image, size: "400x300", format: 'jpeg' ,fallback: "no_image.jpg", class: "rounded" %>
-      <% else %>
-        <div class="sold-out-lg">
-          <%= image_tag @item.image, size: "400x300", format: 'jpeg' ,fallback: "no_image.jpg", class: "rounded"%>
-          <h3>Sold out</h3>
-        </div>
-      <% end %>
+<div class="cocntainer mt-5">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-2">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">ジャンル検索</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render "public/items/genres_search", genres: @genres %>
+        </tbody>
+      </table>
     </div>
 
-    <div class= "col-md-6 mx-auto">
-      <h2><%= @item.name %></h2></br>
+    <div class="col-3">
 
-      <div class="item-description">
-        <%= @item.introduction %>
+      <%= image_tag @item.image, size: "300x240" %>
+    </div>
+    <div class="col-6">
+      <div style="font-size: 35px;">
+        <%= @item.name %>
       </div>
-
-      <div class="item-price">
-        ¥ <%= number_to_currency((Float(@item.unit_price) * 1.08), precision: 0) %> (税込)
+      <div style="font-size: 25px; margin-top: 10px;">
+        <%= @item.introduction %><br>
       </div>
+      <div class="d-flex">
+        <p style="font-size: 25px; margin-top: 50px;">
+         ¥<%= number_to_currency((Float(@item.unit_price) * 1.08), precision: 0) %> (税込)
+        </p>
+      </div>
+    </div>
+  </div>
 
-      <% if customer_signed_in? %>
-    　　<%= form_with( model: [@item, @cart_item], url: cart_items_path, method: :post, local:true) do |f| %>>
-          <%= f.hidden_field :item_id, value: @item.id %>
-          <% if @item.is_active == true %>
-  　　　       <span  class="d-flex justify-content-start"><%= f.select :quantity, options_for_select(1..10), include_blank: "個数選択" %><span>
-  　　　       <%= f.submit "カートに入れる", class:"btn btn-outline-success" %>
-  　　　     <% else %>
-            <p class="text-muted">こちらの商品は、只今売り切れです。</p>
-          <% end %>
-    　　　<% end %>
-　　  <% end %>
+  <style>
+      select {
+        width: 90px;
+        height: 35px;
+      }
+  </style>
 
+  <div class="row mt-3 mb-5">
+    <div class="col-2 offset-1"></div>
+    <div class="col-3" style="font-size: 22px; color: red;"><%= flash[:notice] %></div>
+    <div class="col-1" style="text-align: center; padding: 2px 0 200px 40px;">
+      <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+      <%= f.hidden_field :item_id, :value => @item.id %>
+      <%= f.select:quantity, [["1個", 1],["2個", 2],["3個", 3],["4個", 4],["5個", 5],["6個", 6],["7個", 7],["8個", 8],["9個", 9],["10個", 10]], {include_blank: "個数選択"} %>
+    </div>
+
+    <div class="col-3", style="text-align: center; padding: 0 0 200px 0;" >
+      <%= f.submit "カートに入れる", class: "btn btn-success" %>
+      <% end %>
     </div>
   </div>
 </div>

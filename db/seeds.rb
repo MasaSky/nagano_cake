@@ -43,3 +43,17 @@
       is_active: true
     )
   end
+
+ Delivery.create!(
+   customer_id: 1,
+   attention: "山田 太郎",
+   postal_code: "1234567",
+   address: "東京都千代田区霞が関1-1-1",
+ )
+
+ Delivery.create!(
+   customer_id: 2,
+   attention: "佐藤 花子",
+   postal_code: "2345678",
+   address: "神奈川県横浜市港北区新横浜1-1-1",
+ )

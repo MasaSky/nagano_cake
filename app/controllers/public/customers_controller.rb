@@ -1,15 +1,15 @@
 class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!
 
-  def show    #--- GET /customers/:id
+  def show
     @customer = current_customer
   end
 
-  def edit    #--- GET /customers/:id/edit
+  def edit
     @customer = current_customer
   end
 
-  def update    #--- PATCH/PUT /customers/:id
+  def update
     customer = current_customer
     if customer.update(customer_params)
       redirect_to customer, notice: '会員情報を更新しました'
