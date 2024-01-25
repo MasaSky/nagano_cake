@@ -5,4 +5,7 @@ class Delivery < ApplicationRecord
   validates :postal_code, presence: true, length: { is: 7 }, numericality: { only_integer: true }
   validates :address, presence: true, length: { minimum: 7, maximum: 150 }
 
+  def address_display
+    '〒' + postal_code + ' ' + address + ' ' + attention
+  end
 end

@@ -4,29 +4,32 @@ class Admin::OrdersController < ApplicationController
 
 
   def show
-    @customer = Customer.find(params[:id])
-    @orders = @customer.orders
-    
-    quantity_sum = 0
-    @orders.each do |order|
-      quantity_sum += order.quantity
-    end
-    @quantity_sum = quantity_sum
+    @order = Order.find(params[:id])
+    @orders = Order.all
+    @order_items = OrderItem.where(order_id: @order.id)
+    @order_new = Order.new
+    @order_item = OrderItem.find(params[:id])
+
+    @order_status_key = Order.order_statuses
+    @product_status_key = OrderItem.product_statuses
+    @customer = @order.customer
   end
 
   def update
-　　if @order.update(order_params)
-  　　if @order.order_status == "入金確認"
-    　@order.order_items.update_all(production_status: 1)
-  　　end
-　　end
-    　flash[:notice] = "注文ステータスを変更しました"
-    　redirect_to admin_order_path(@order)
+    @order = Order.find(params[:id])
+    @order.update(order_params)
+    if @order.order_status == "入金確認"
+     @order.order_items.update_all(product_status: 1)
+    elsif @order.order_status == "製作中"
+     @order.order_items.update_all(product_status: 2)
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   private
 
   def order_params
-    params.require(:order).permit(:order_status)
+    params.require(:order).permit(:order_status, :product_status)
   end
+
 end

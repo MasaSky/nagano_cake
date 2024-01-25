@@ -41,7 +41,7 @@
               <td><%= ad.attention %></td>
               <td>
                 <%= link_to '編集する', edit_delivery_path(ad.id), class: 'btn btn-outline-success' %>
-                <%= link_to '削除する', delivery_path(ad.id), method: :delete,data: { confirm: '本当に消しますか？' },class:"btn btn-danger" %>
+                <%= link_to '削除する', delivery_path(ad.id), method: :delete, data: { confirm: '本当に消しますか？' },class:"btn btn-danger" %>
               </td>
             </tr>
             <% end %>

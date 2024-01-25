@@ -1,15 +1,17 @@
 <div class="container">
-  <div class="row">
-    <div class="col-12 mx-auto">
-      <h2>商品一覧</h2>
+  <div class="row mt-4">
+    <div class="col-sm-12" >
+      <div>
+      <h3 class="row mb-3">商品一覧</h3>
+
       <%= link_to new_admin_item_path, data: {"turbolinks" => false}, class: "d-flex justify-content-end" do %>
         <i class="fas fa-plus-circle fa-3x plus-button"></i>
       <% end %>
-
+      </div>
       <% unless @items.blank? %>
-        <table class='table'>
+        <table class='table table-hover'>
           <thead>
-            <tr>
+            <tr class='table'>
               <th>商品ID</th>
               <th>商品名</th>
               <th>税抜価格</th>

@@ -2,6 +2,18 @@
 <div class="container mt-5">
 
 	<div class="row mx-auto">
+		<div class="col-2">
+			<table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">ジャンル検索</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render "public/items/genres_search", genres: @genres %>
+        </tbody>
+      </table>
+		</div>
 		<div id="carouselExampleIndicators" class="carousel slide-box mx-auto" data-ride="carousel">
 		  <ol class="carousel-indicators">
 		    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
