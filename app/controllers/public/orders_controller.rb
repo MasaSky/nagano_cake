@@ -15,10 +15,10 @@ class Public::OrdersController < ApplicationController
       @order.address = current_customer.address
 
     elsif params[:order][:delivery_option] == '1'
-      ship = Delivery.find(params[:order][:delivery_id])
-      @order.attention = ship.attention
-      @order.postal_code = ship.postal_code
-      @order.address = ship.address
+      @delivery = Delivery.find(params[:order][:delivery_id])
+      @order.attention = @delivery.attention
+      @order.postal_code = @delivery.postal_code
+      @order.address = @delivery.address
 
     elsif params[:order][:delivery_option] == '2'
       @order.attention = params[:order][:attention]
@@ -33,9 +33,9 @@ class Public::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    if @order.save
-      @cart_items = current_customer.cart_items.all
-      @cart_items.each do |cart_item|
+    @order.save
+    @cart_items = current_customer.cart_items.all
+    @cart_items.each do |cart_item|
       @order_items = OrderItem.new
       @order_items.order_id = @order.id
       @order_items.item_id = cart_item.item.id
@@ -44,16 +44,12 @@ class Public::OrdersController < ApplicationController
       @order_items.product_status = 0
       @order_items.save
     end
-      redirect_to orders_complete_path
-    else
-      render :new
-    end
+    CartItem.destroy_all
+    redirect_to complete_orders_path
   end
 
   def complete
-    @order = Order.find(params[:id])
-    @order.complete!
-    redirect_to orders_path, notice: '注文を完了しました'
+
   end
 
   def index

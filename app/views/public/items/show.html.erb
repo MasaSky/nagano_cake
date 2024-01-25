@@ -27,7 +27,7 @@
       </div>
       <div class="d-flex">
         <p style="font-size: 25px; margin-top: 50px;">
-         ¥<%= number_to_currency((Float(@item.unit_price) * 1.08), precision: 0) %> (税込)
+         ¥<%= @item.price %> (税込)
         </p>
       </div>
     </div>
@@ -46,9 +46,8 @@
     <div class="col-1" style="text-align: center; padding: 2px 0 200px 40px;">
       <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
       <%= f.hidden_field :item_id, :value => @item.id %>
-      <%= f.select:quantity, [["1個", 1],["2個", 2],["3個", 3],["4個", 4],["5個", 5],["6個", 6],["7個", 7],["8個", 8],["9個", 9],["10個", 10]], {include_blank: "個数選択"} %>
+      <%= f.select :quantity, [["1個", 1],["2個", 2],["3個", 3],["4個", 4],["5個", 5],["6個", 6],["7個", 7],["8個", 8],["9個", 9],["10個", 10]], {include_blank: "個数選択"} %>
     </div>
-
     <div class="col-3", style="text-align: center; padding: 0 0 200px 0;" >
       <%= f.submit "カートに入れる", class: "btn btn-success" %>
       <% end %>

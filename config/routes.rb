@@ -6,9 +6,12 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get "about" => "homes#about", as: :about
-    get 'search_genres' => 'items#search_genres', as: 'genres'
-    get 'search_word' => 'items#search_word', as: 'search'
-    resources :items, only: [:index, :show]
+    resources :items, only: [:index, :show] do
+      collection do
+        get 'search_genres' => 'items#search_genres', as: 'genres'
+        get 'search_word' => 'items#search_word', as: 'search'
+      end
+    end
     resources :customers, only: [:show, :edit, :update] do
       collection do
         get 'info' => 'customers#show', as: 'info'

@@ -6,6 +6,10 @@ ja:
         bank_transfer: "銀行振込"
       order_status:
         awaiting_payment: "入金待ち"
+        payment_confirmed: "入金確認"
+        under_production: "製作中"
+        in_shipping: "発送準備中"
+        shipped: "発送済み"
         order_cancelled: "注文キャンセル"
         order_confirmed: "注文確定"
         order_completed: "注文完了"
@@ -14,6 +18,7 @@ ja:
         unable: "製作不可"
         in_preparing: "製作待ち"
         under_production: "製作中"
+        production_completed: "製作完了"
         in_shipping: "出荷準備中"
         shipped: "発送済み"
   activerecord:

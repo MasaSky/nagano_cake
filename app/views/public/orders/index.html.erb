@@ -24,20 +24,20 @@
         <tbody>
           <% @orders.each do |o| %>
             <tr>
-              <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
+              <td><%= o.created_at.strftime('%Y/%m/%d') %></td>
             <td>
               <%= o.postal_code %><br>
               <%= o.address %>
               <%= o.attention %><br>
             </td>
             <td>
-              <% order.order_items.each do |oi| %>
+              <% o.order_items.each do |oi| %>
               	<%= oi.item.name %><br>
               <% end %>
             </td>
             <td class="text-right"><%= o.grand_total.to_s(:delimited) %>円</td>
             <td><%= o.order_status %></td>
-             <td><%= link_to "注文詳細", order_path(order), class: "btn btn-outline-info" %></td>
+             <td><%= link_to "注文詳細", order_path(o), class: "btn btn-outline-info" %></td>
             </tr>
           <% end %>
         </tbody>

@@ -6,7 +6,7 @@ class CartItem < ApplicationRecord
   validates :quantity, presence: true, numericality: { only_integer: true }
 
   def subtotal
-    quantity*item.price
+    quantity * item.price
   end
 
   def quantity_options

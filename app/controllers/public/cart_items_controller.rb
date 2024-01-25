@@ -4,22 +4,36 @@ class Public::CartItemsController < ApplicationController
 
   def index
     @cart_items = current_customer.cart_items.all
-    @cart_item = CartItem.new
     @total_amount = CartItem.total_amount(current_customer)
   end
 
   def create
-    @cart_item = current_customer.cart_items.new(cart_item_params)
-    if @cart_item.present?
-      @cart_item.quantity += params[:cart_item][:quantity].to_i
-      @cart_item.save
-      flash[:notice_1] = "数量を変更しました"
+    if current_customer.cart_items.find_by(item_id: cart_item_params[:item_id])
+      if cart_item_params[:quantity].blank?
+        @item = Item.find(cart_item_params[:item_id])
+        @genres = Genre.all
+        @cart_item = CartItem.new
+        flash[:notice] = "個数を入力してください"
+        redirect_to item_path(@item.id)
+      else
+        @cart_item = current_customer.cart_items.find_by(item_id: cart_item_params[:item_id])
+        @cart_item.quantity = @cart_item.quantity + cart_item_params[:quantity].to_i
+        @cart_item.save
+        redirect_to cart_items_path
+      end
     else
-      @cart_item = CartItem.new(cart_item_params)
-      @cart_item.save
-      flash[:notice_] = "商品をカートにいれました"
+      if cart_item_params[:quantity].blank?
+        @item = Item.find(cart_item_params[:item_id])
+        @genres = Genre.all
+        @cart_item = CartItem.new
+        flash[:notice] = "個数を入力してください"
+        redirect_to item_path(@item.id)
+      else
+        @cart_item = current_customer.cart_items.new(cart_item_params)
+        @cart_item.save
+        redirect_to cart_items_path
+      end
     end
-    redirect_to cart_items_path
   end
 
   def update

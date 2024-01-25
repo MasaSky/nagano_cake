@@ -12,7 +12,7 @@ class Public::CustomersController < ApplicationController
   def update
     customer = current_customer
     if customer.update(customer_params)
-      redirect_to customer, notice: '会員情報を更新しました'
+      redirect_to customer
     else
       render :show
     end
@@ -26,17 +26,13 @@ class Public::CustomersController < ApplicationController
     @customer = current_customer
   end
 
-def deactive	#--- PATCH /customers/:id/deactive
-  customer = current_customer
-  if confirm('退会しますか？')
-    customer.update(is_active: false)
+  def deactive
+    @customer = current_customer
+    @customer.update(is_active: false)
     reset_session
     flash.clear
     redirect_to root_path, notice: '退会しました'
-  else
-    redirect_back(fallback_location: root_path)
   end
-end
 
   private
 
