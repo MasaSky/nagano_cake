@@ -1,5 +1,4 @@
 class Public::DeliveriesController < ApplicationController
-  before_action :authenticate_customer!
 
   def index
     @delivery = Delivery.new
@@ -13,9 +12,9 @@ class Public::DeliveriesController < ApplicationController
       flash[:notice] = "配送先を登録しました"
       redirect_to deliveries_path
     else
-      flash[:alert] = "配送先を登録できませんでした。"
+      flash[:notice] = "配送先を登録できませんでした"
       @deliveries = Delivery.where(customer_id: current_customer.id)
-      redirect_to deliveries_path
+      render :index
     end
   end
 
@@ -29,8 +28,8 @@ class Public::DeliveriesController < ApplicationController
       flash[:notice] = "配送先情報を更新しました"
       redirect_to deliveries_path
     else
-      flash[:alert] = "配送先を登録できませんでした。"
-      render :edit
+      flash[:notice] = "配送先を更新できませんでした"
+      render :index
     end
   end
 

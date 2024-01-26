@@ -23,10 +23,10 @@
       <% @items.each do |item| %>
       <div class="mx-3 my-3">
       <%= link_to items_path(item) do %>
-      <%= image_tag item.image, size: "200x160", fallback: "no_image.jpg", class: "new-item-img" %>
+      <%= image_tag item.image, size: "200x160", fallback: "no_image.jpg" %>
       <% end %><br>
       <%= item.name %><br>
-      ¥<%= number_to_currency((Float(item.unit_price) * 1.08), precision: 0) %> (税込)
+      ¥<%= item.price %>
       </div>
       <% end %>
     </div>

@@ -1,9 +1,11 @@
+<% provide(:title, "会員情報編集") %>
 <div class="container">
   <div class="row">
     <div class="col">
       <h3 class="px-3 my-3 col-md-4 text-center">会員情報編集</h3>
+      <div><%= render "layouts/form_error_messages", model: @customer %></div>
       <table class="table table-borderless">
-        <%= form_with model: @customer, url: info_customers_path, method: :patch do |f| %>
+        <%= form_with model: @customer do |f| %>
         <tr>
           <th class="col-md-3 col-sm-4">氏名</th>
           <th class="col-md-8 col-sm-8"><%= f.text_field :last_name %> <%= f.text_field :first_name, class: "inline-block ml-3" %></th>

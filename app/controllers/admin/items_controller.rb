@@ -1,5 +1,4 @@
 class Admin::ItemsController < ApplicationController
-  before_action :authenticate_admin!
 
   def index
     @items = Item.all
@@ -36,6 +35,16 @@ class Admin::ItemsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def search_word
+    @genres = Genre.all
+  end
+
+  def search_genres
+    @genres = Genre.all
+    @genre_name = params[:name]
+    @items = Genre.find_by(name: @genre_name).items
   end
 
   private

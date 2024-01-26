@@ -1,5 +1,4 @@
 class Admin::OrderItemsController < ApplicationController
-  before_action :authenticate_admin!
   include ApplicationHelper
 
   def update

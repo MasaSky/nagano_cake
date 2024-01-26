@@ -1,24 +1,22 @@
+<% provide(:title, "配送先一覧") %>
 <div class="container" style="margin-bottom: 220px;">
   <div class="row">
     <div class="col">
       <h4 class="px-3 my-3 text-center col-md-3">配送先登録/一覧</h4>
+      <div><%= render "layouts/form_error_messages", model: @delivery %></div>
       <table class="table table-borderless">
-        <%= form_with model:@delivery,method: :post, local: true do |f| %>
+        <%= form_with model: @delivery, method: :post, local: true do |f| %>
           <tr>
             <th>郵便番号(ハイフン無し)</th>
-            <th><%= f.text_field:postal_code, placeholder: "0000000" %></th>
+            <th><%= f.text_field :postal_code, placeholder: "0000000" %></th>
           </tr>
           <tr>
             <th>住所</th>
-            <th><%= f.text_field:address,size: "65x5", placeholder: "都道府県市区町村番地建物名" %></th>
+            <th><%= f.text_field :address, size: "65x5", placeholder: "都道府県市区町村番地建物名" %></th>
           </tr>
           <tr>
             <th>宛名</th>
-            <th><%= f.text_field:attention, placeholder: "氏名" %></th>
-          </tr>
-          <tr>
-            <th>電話番号(ハイフン無し)</th>
-            <th><%= f.text_field:telphone_number,placeholder: "000000000" %></th>
+            <th><%= f.text_field :attention, placeholder: "氏名" %></th>
             <th><%= f.submit "新規登録",class:"btn btn-success" %></th>
           </tr>
         <% end %>
@@ -41,7 +39,7 @@
               <td><%= ad.attention %></td>
               <td>
                 <%= link_to '編集する', edit_delivery_path(ad.id), class: 'btn btn-outline-success' %>
-                <%= link_to '削除する', delivery_path(ad.id), method: :delete, data: { confirm: '本当に消しますか？' },class:"btn btn-danger" %>
+                <%= link_to '削除する', delivery_path(ad.id), method: :delete, data: { confirm: '本当に削除しますか？' },class:"btn btn-danger" %>
               </td>
             </tr>
             <% end %>

@@ -1,12 +1,14 @@
+<% provide(:title, "配送先編集") %>
 <div class="container" style="margin-bottom: 220px;">
   <div class="row">
     <div class="col">
       <h4>配送先編集</h4>
+      <div><%= render "layouts/form_error_messages", model: @delivery %></div>
       <table class="table table-borderless">
-        <%= form_with model:@delivery, method: :patch do |f| %>
+        <%= form_with model: @delivery, method: :patch do |f| %>
           <tr>
             <th>郵便番号(ハイフン無し)</th>
-            <td><%= f.text_field:postal_code %></td>
+            <td><%= f.text_field :postal_code %></td>
           </tr>
           <tr>
             <th>住所</th>

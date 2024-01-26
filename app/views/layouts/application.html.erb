@@ -13,9 +13,8 @@
   <body>
      <%= render 'layouts/header' %>
     <main>
-    <div class="content">
+      <div class="col px-3 my-2"><%= flash[:notice] %></div>
       <%= yield %>
-    </div>
     </main>
      <%= render 'layouts/footer' %>
   </body>

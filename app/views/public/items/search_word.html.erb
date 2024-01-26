@@ -1,3 +1,4 @@
+<% provide(:title, "検索結果") %>
 <div class="row d-flex mt-5 ">
   <div class="col-1"></div>
     <div class="col-2">
@@ -26,10 +27,9 @@
             <%= image_tag item.image, size: "200x160" %>
             <% end %><br>
             <%= item.name %><br>
-            ¥<%= number_with_delimiter item.unit_price %>
+            ¥<%= item.price %>
           </div>
         <% end %>
       </div>
-
     </div>
 </div>

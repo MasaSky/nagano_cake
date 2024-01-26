@@ -9,7 +9,16 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <% if customer_signed_in? %>
+    <% if admin_signed_in? %>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto navbar-light">
+          <li><%= link_to "商品一覧",     admin_items_path, class: "btn" %></li>
+          <li><%= link_to "会員一覧",     admin_customers_path, class: "btn"  %></li>
+          <li><%= link_to "ジャンル一覧", admin_genres_path, class: "btn" %></li>
+          <li><%= link_to "ログアウト",   destroy_admin_session_path, method: :delete, class: "btn" %></li>
+        </ul>
+      </div>
+    <% elsif customer_signed_in? %>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto navbar-light">
           <li class="customer_name mr-4">ようこそ、<%= "#{current_customer.last_name} #{current_customer.first_name}" %>さん！</li>
@@ -17,15 +26,6 @@
           <li><%= link_to "商品一覧",   items_path, class: "btn fas fa-cheese" %></li>
           <li><%= link_to "カート",     cart_items_path, class: "btn fas fa-shopping-cart" %></li>
           <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "btn fas fa-sign-out-alt" %></li>
-        </ul>
-      </div>
-    <% elsif admin_signed_in? %>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto navbar-light">
-          <li><%= link_to "商品一覧",     admin_items_path, class: "btn" %></li>
-          <li><%= link_to "会員一覧",     admin_customers_path, class: "btn"  %></li>
-          <li><%= link_to "ジャンル一覧", admin_genres_path, class: "btn" %></li>
-          <li><%= link_to "ログアウト",   destroy_admin_session_path, method: :delete, class: "btn" %></li>
         </ul>
       </div>
     <% else %>
@@ -39,7 +39,7 @@
       </div>
     <% end %>
       <div class="d-flex justify-content-end">
-        <%= render 'public/items/words_search', q: @q, url: items_path %>
+        <%= render 'layouts/words_search', q: @q, url: items_path %>
       </div>
    </div>
   </nav>

@@ -1,7 +1,5 @@
 class Admin::OrdersController < ApplicationController
-  before_action :authenticate_admin!
   include ApplicationHelper
-
 
   def show
     @order = Order.find(params[:id])

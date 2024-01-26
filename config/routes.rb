@@ -35,8 +35,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "homes#top"
-
-    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :items, only: [:index, :new, :create, :show, :edit, :update] do
+      collection do
+        get 'search_genres' => 'items#search_genres', as: 'genres'
+        get 'search_word' => 'items#search_word', as: 'search'
+      end
+    end
     resources :customers, only: [:index, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update, :destroy]
     resources :orders, only: [:show, :update]

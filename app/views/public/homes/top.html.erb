@@ -48,18 +48,17 @@
 	<div class="row d-flex mt-5">
 		<div class="col-12">
 				<h3 >新着商品</h3>
-				<div class="d-flex felx-wrap justify-content-around mt-3">
+				<div class="d-flex felx-wrap justify-content-around">
 					<% @items.each do |item| %>
 						<div>
 							<%= link_to item_path(item) do %>
 							  <%= image_tag item.image, size: "180x130", fallback: "no_image.jpg", class: "new-item-img" %>
 							<% end %>
-							<p class="text-center item-name"><%= link_to item.name, items_path(item), class: "item-name-link" %></p>
-
+							<p class="text-left item-name"><%= link_to item.name, items_path(item), class: "item-name-link" %></p>
 							<% if item.is_active == true %>
-							  <p class="text-right">¥<%= number_to_currency((Float(item.unit_price) * 1.08), precision: 0) %> (税込)</p>
+							  <p class="text-left">¥<%= item.price %></p>
 							<% elsif item.is_active == false %>
-							  <p class="text-right">売切</p>
+							  <p class="text-left">売切</p>
 							<% end %>
 						</div>
 					<% end %>

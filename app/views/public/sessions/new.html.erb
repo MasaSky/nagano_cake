@@ -1,14 +1,10 @@
-<% provide(:title, "ログイン") %>
+<% provide(:title, "会員ログイン") %>
 <div class="row">
   <div class="col-md-10 mx-auto">
     <h4 class="text-center mb-5">ログイン</h4>
-    <% if flash[:error] %>
-      <span class="bg-danger rounded text-light p-1"><%= flash[:error] %></span>
-    <% end %>
     <h4>会員の方はこちらからログイン</h4>
-
-    <%= form_for(resource, as: resource, url: session_path(resource)) do |f| %>
-      <%= render "public/shared/error_messages", resource: resource %>
+    <%= form_with model: @customer, url: customer_session_path, local: true do |f| %>
+      <%= render "layouts/form_error_messages", model: @customer %>
       <div class="field form-group col-xs-12">
         <%= f.label :"メールアドレス", class: "col-sm-3 control-label" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-sm-3 form-control-static" %>
@@ -33,7 +29,7 @@
     <% end %>
     <div class="col-xs-9">
       <h4 class="my-3">会員登録がお済みではない方</h4>
-      <%= link_to "こちら", new_registration_path(resource_name) %>から新規登録を行ってください。
+      <%= render "public/shared/links" %>から新規登録を行ってください。
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<% provide(:title, "ジャンル") %>
+<% provide(:title, "管理者検索") %>
 <div class="row d-flex mt-5 ">
   <div class="col-1"></div>
     <div class="col-2">
@@ -9,27 +9,28 @@
           </tr>
         </thead>
         <tbody>
-          <%= render "public/items/genres_search", genres: @genres %>
+          <%= render "admin/items/genres_search", genres: @genres %>
         </tbody>
       </table>
     </div>
 
     <div class="col-9">
       <div class="d-flex">
-        <p style="font-size:35px"><%= @genre_name %>一覧</p>
+        <p style="font-size:35px"><%= "#{@q.name_cont}" %>一覧</p>
         <p style="font-size:25px; line-height: 2;">(全<%= @items.count %>件)</p>
       </div>
 
       <div class="d-flex flex-wrap items_width">
         <% @items.each do |item| %>
           <div class="mx-3 my-3">
-            <%= link_to item_path(item) do %>
+            <%= link_to admin_item_path(item) do %>
             <%= image_tag item.image, size: "200x160" %>
             <% end %><br>
             <%= item.name %><br>
-            ¥<%= item.price %>
+            ¥<%= item.unit_price %>円(単価)
           </div>
         <% end %>
       </div>
+
     </div>
 </div>

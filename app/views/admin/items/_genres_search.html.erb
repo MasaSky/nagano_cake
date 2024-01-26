@@ -1,0 +1,9 @@
+<% if genres.present? %>
+<% @genres.each do |g| %>
+ <tr>
+  <td>
+   <%= link_to g.name, genres_admin_items_path(name: g.name, model: "genre"), class: "text-dark text-decoration-none" %>
+  </td>
+ </tr>
+<% end %>
+<% end %>

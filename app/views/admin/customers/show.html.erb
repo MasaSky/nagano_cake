@@ -55,7 +55,11 @@
   <div class="row">
   <div class="col-8 mx-auto">
     <%= link_to "編集する", edit_admin_customer_path(@customer), class: 'btn btn-success' %>
+    <% if @order.present? %>
     <%= link_to "注文履歴一覧を見る", admin_order_path(@customer), class: 'btn btn-primary' %>
+    <% else %>
+    <%= link_to "注文一覧に戻る", admin_root_path, class: 'btn btn-primary' %>
+    <% end %>
   </div>
   </div>
 </div>
