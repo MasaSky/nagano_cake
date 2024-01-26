@@ -26,7 +26,11 @@
       <%= image_tag item.image, size: "200x160", fallback: "no_image.jpg" %>
       <% end %><br>
       <%= item.name %><br>
-      ¥<%= number_with_delimiter item.price %>
+ 			<% if item.is_active == true %>
+			<p class="text-left">¥<%= number_with_delimiter item.price %></p>
+			<% elsif item.is_active == false %>
+			<p class="text-left">売切</p>
+			<% end %>
       </div>
       <% end %>
     </div>
