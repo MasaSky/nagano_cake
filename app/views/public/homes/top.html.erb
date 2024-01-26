@@ -1,8 +1,8 @@
 <% provide(:title, "ホーム") %>
 <div class="container mt-5">
 
-	<div class="row mx-auto">
-		<div class="col-2">
+	<div class="row">
+		<div class="col-3">
 			<table class="table table-bordered table-hover">
         <thead>
           <tr>
@@ -14,7 +14,8 @@
         </tbody>
       </table>
 		</div>
-		<div id="carouselExampleIndicators" class="carousel slide-box mx-auto" data-ride="carousel">
+
+		<div id="carouselExampleIndicators" class="carousel slide-box" data-ride="carousel">
 		  <ol class="carousel-indicators">
 		    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 		    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -26,6 +27,12 @@
 			  	  <%= image_tag it.image, size: "620x400", alt: it.name, class: 'slide-image' %>
 				  </div>
 				<% end %>
+				<p style="position:absolute; top:160px; left:80px; background-color:rgba(0,0,0,0.4); color:#FFF; font-size:20px;">
+        ようこそ、ながのCAKEへ！<br>
+        このサイトは、ケーキ販売のECサイトになります。<br>
+        会員でない方も商品の閲覧はできますが、<br>
+        購入には会員登録が必要になります。
+        </p>
 		  </div>
 		  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -38,9 +45,8 @@
 		</div>
 	</div>
 
-	<div class="row mt-5">
+	<div class="row d-flex mt-5">
 		<div class="col-12">
-			<div class="new-item-box">
 				<h3 >新着商品</h3>
 				<div class="d-flex felx-wrap justify-content-around mt-3">
 					<% @items.each do |item| %>
@@ -58,8 +64,7 @@
 						</div>
 					<% end %>
 				</div>
-				<%= link_to "全ての商品を見る >", items_path, class: "float-right btn fas fa-cheese products-link mt-2" %>
-			</div>
+				<%= link_to "全ての商品を見る >", items_path, class: "float-right btn fas fa-cheese products-link mt-4" %>
 		</div>
 	</div>
 
