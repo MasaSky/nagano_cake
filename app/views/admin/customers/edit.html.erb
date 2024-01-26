@@ -9,8 +9,8 @@
 
  <div class="row mt-2">
    <div class="col-2"></div>
-      <%= form_with model: @customer, url: admin_customer_path, method: :patch, local: true do |f| %>
       <div><%= render "layouts/form_error_messages", model: @customer %></div>
+      <%= form_with model: @customer, url: admin_customer_path, method: :patch do |f| %>
       <div class="row">
         <table class="table table-bordered">
           <tbody>

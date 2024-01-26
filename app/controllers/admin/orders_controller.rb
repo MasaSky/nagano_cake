@@ -22,6 +22,7 @@ class Admin::OrdersController < ApplicationController
      @order.order_items.update_all(product_status: 2)
     end
     redirect_back(fallback_location: root_path)
+    flash[:notice] = "注文ステータスを更新しました。"
   end
 
   private

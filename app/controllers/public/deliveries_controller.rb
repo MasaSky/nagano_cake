@@ -12,7 +12,6 @@ class Public::DeliveriesController < ApplicationController
       flash[:notice] = "配送先を登録しました"
       redirect_to deliveries_path
     else
-      flash[:notice] = "配送先を登録できませんでした"
       @deliveries = Delivery.where(customer_id: current_customer.id)
       render :index
     end
@@ -28,8 +27,7 @@ class Public::DeliveriesController < ApplicationController
       flash[:notice] = "配送先情報を更新しました"
       redirect_to deliveries_path
     else
-      flash[:notice] = "配送先を更新できませんでした"
-      render :index
+      render :edit
     end
   end
 

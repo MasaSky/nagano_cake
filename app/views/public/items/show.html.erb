@@ -31,22 +31,32 @@
       </div>
     </div>
   </div>
-  <% if @item.is_active == true %>
-  <div class="row mt-3 mb-5">
-    <div class="col-2 offset-1"></div>
-    <div class="col-1" style="text-align: center; padding: 2px 0 200px 40px;">
-      <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
-      <%= f.hidden_field :item_id, :value => @item.id %>
-      <%= f.select :quantity, [["1個", 1],["2個", 2],["3個", 3],["4個", 4],["5個", 5],["6個", 6],["7個", 7],["8個", 8],["9個", 9],["10個", 10]], {include_blank: "個数選択"} %>
+  <% if customer_signed_in? %>
+    <% if @item.is_active == true %>
+    <div class="row mt-3 mb-5">
+      <div class="col-2 offset-1"></div>
+      <div class="col-1" style="text-align: center; padding: 2px 0 200px 40px;">
+        <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <%= f.select :quantity, [["1個", 1],["2個", 2],["3個", 3],["4個", 4],["5個", 5],["6個", 6],["7個", 7],["8個", 8],["9個", 9],["10個", 10]], {include_blank: "個数選択"} %>
+      </div>
+      <div class="col-3", style="text-align: center; padding: 0 0 200px 0;" >
+        <%= f.submit "カートに入れる", class: "btn btn-success" %>
+        <% end %>
+      </div>
     </div>
-    <div class="col-3", style="text-align: center; padding: 0 0 200px 0;" >
-      <%= f.submit "カートに入れる", class: "btn btn-success" %>
-      <% end %>
+    <% elsif @item.is_active == false %>
+    <div class="text-center">
+    <h2>只今、こちらの商品は販売しておりません。</h2>
     </div>
-  </div>
-  <% elsif @item.is_active == false %>
-  <div class="text-center">
-  <h2>只今、こちらの商品は販売しておりません。</h2>
-  </div>
+    <% end %>
+  <% else %>
+    <div class="text-center">
+    <h3>ご購入の際は、
+    <%= link_to "新規登録", new_customer_registration_path %>
+    もしくは
+    <%= link_to "ログイン", new_customer_session_path %>
+    が必要です。</h3>
+    </div>
   <% end %>
 </div>

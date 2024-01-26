@@ -7,6 +7,7 @@ class Public::CartItemsController < ApplicationController
   end
 
   def create
+    cart_item = current_customer.cart_items.new(cart_item_params)
     if current_customer.cart_items.find_by(item_id: cart_item_params[:item_id])
       if cart_item_params[:quantity].blank?
         @item = Item.find(cart_item_params[:item_id])

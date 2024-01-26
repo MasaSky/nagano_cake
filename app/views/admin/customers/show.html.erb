@@ -1,12 +1,11 @@
+<% provide(:title, "会員詳細") %>
 <div class="container">
-
 　<div class="row mt-4">
    <div class="col-2"></div>
    <div class="row">
      <h3><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</h3>
    </div>
   </div>
-
   <div class="row mt-2">
     <div class="col-2"></div>
       <div class="row">
@@ -54,7 +53,7 @@
   </div>
   <div class="row">
   <div class="col-8 mx-auto">
-    <%= link_to "編集する", edit_admin_customer_path(@customer), class: 'btn btn-success' %>
+    <%= link_to "編集する", edit_admin_customer_path(@customer.id), class: 'btn btn-success' %>
     <%= link_to "注文履歴一覧に戻る", admin_root_path, class: 'btn btn-primary' %>
   </div>
   </div>

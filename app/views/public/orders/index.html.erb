@@ -1,4 +1,5 @@
 <% provide(:title, "注文履歴一覧") %>
+<div class="container mt-5">
 <div class="row">
   <div class="col-4"></div>
   <div class="col-4">
@@ -8,9 +9,9 @@
 </div>
 
 <div calss="row">
-  <div class="col-md-10 mx-auto orders-table">
+  <div class="col-16 mx-auto orders-table">
     <% if @orders.present? %>
-      <table class="table table-hover table-bordered table-condensed">
+      <table class="table table-hover table-bordered ">
         <thead>
           <tr>
             <th>注文日</th>
@@ -43,7 +44,10 @@
         </tbody>
       </table>
     <% else %>
-      <p>注文履歴がありません。</p>
+    <div class="text-center my-5">
+      <h4>注文履歴がありません。</h4>
+    </div>
     <% end %>
   </div>
+</div>
 </div>

@@ -10,6 +10,7 @@ class Admin::OrderItemsController < ApplicationController
       @order_item.order.update(order_status: 3)
     end
     redirect_back(fallback_location: root_path)
+    flash[:notice] = "製作ステータスを更新しました。"
   end
 
   def order_item_params
