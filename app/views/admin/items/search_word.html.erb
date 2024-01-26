@@ -1,4 +1,4 @@
-<% provide(:title, "管理者検索") %>
+<% provide(:title, "管理者商品検索") %>
 <div class="row d-flex mt-5 ">
   <div class="col-1"></div>
     <div class="col-2">
@@ -27,10 +27,9 @@
             <%= image_tag item.image, size: "200x160" %>
             <% end %><br>
             <%= item.name %><br>
-            ¥<%= item.unit_price %>円(単価)
+            ¥<%= number_with_delimiter item.unit_price %>(単価)
           </div>
         <% end %>
       </div>
-
     </div>
 </div>

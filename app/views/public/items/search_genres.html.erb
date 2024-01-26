@@ -27,7 +27,7 @@
             <%= image_tag item.image, size: "200x160" %>
             <% end %><br>
             <%= item.name %><br>
-            ¥<%= item.price %>
+            ¥<%= number_with_delimiter item.price %>
           </div>
         <% end %>
       </div>

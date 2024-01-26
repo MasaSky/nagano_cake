@@ -18,7 +18,7 @@ class Item < ApplicationRecord
   end
 
   def price
-    tax = 1.08
+    tax = 1.10
     (unit_price*tax).floor
   end
 end

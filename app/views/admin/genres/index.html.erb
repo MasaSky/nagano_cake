@@ -1,8 +1,8 @@
+<% provide(:title, "ジャンル一覧・追加") %>
 <div class="container">
-  <div class="mt-4">
+  <div class="mt-5">
     <div class="col-sm-8">
       <h3 class="mb-3">ジャンル一覧・追加</h3>
-
       <div class="mt-4">
         <%= form_with model: @genre, url: admin_genres_path, local:true do |f| %>
           <%= f.label :name, 'ジャンル名' %>
@@ -10,9 +10,8 @@
           <%= f.submit '新規作成', class:"btn btn-sm btn-success" %>
         <% end %>
       </div>
-
       <div class="col-8 mt-4">
-        <table class="table">
+        <table class="table table-hover">
           <thead class="table-secondary">
             <tr>
               <th>ジャンル</th>
@@ -33,7 +32,6 @@
           </tbody>
         </table>
       </div>
-
     </div>
   </div>
 </div>

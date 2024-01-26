@@ -56,7 +56,7 @@
 							<% end %>
 							<p class="text-left item-name"><%= link_to item.name, items_path(item), class: "item-name-link" %></p>
 							<% if item.is_active == true %>
-							  <p class="text-left">¥<%= item.price %></p>
+							  <p class="text-left">¥<%= number_with_delimiter item.price %></p>
 							<% elsif item.is_active == false %>
 							  <p class="text-left">売切</p>
 							<% end %>

@@ -1,21 +1,10 @@
+<% provide(:title, "商品登録") %>
 <div class="container">
   <div class="row mt-4">
-    <h2>商品新規登録</h2>
+    <h3>商品新規登録</h3>
     <div class="col-md-6 mt-4">
       <table class="table table-borderless">
-        <% if @item.errors.any? %>
-          <tr>
-            <td></td>
-            <td>
-              <%= @item.errors.count %>件のエラーが発生しました
-              <ul class="list-group list-unstyled">
-                <% @item.errors.full_messages.each do |message| %>
-                  <li class="text-danger"><%= message %></li>
-                <% end %>
-              </ul>
-            </td>
-          </tr>
-        <% end %>
+        <div><%= render "layouts/form_error_messages", model: @item %></div>
         <%= form_with model: @item, url: admin_items_path, local:true do |f| %>
           <tr>
             <td>商品画像</td>

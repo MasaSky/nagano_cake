@@ -11,7 +11,7 @@ class CartItem < ApplicationRecord
 
   def quantity_options
     options = []
-    ((self.quantity || 0) + 10).times do |count|
+      1.upto(12) do |count|
       options << [count, count]
     end
     return options

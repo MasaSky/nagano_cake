@@ -7,7 +7,7 @@ class Admin::OrdersController < ApplicationController
     @order_items = OrderItem.where(order_id: @order.id)
     @order_new = Order.new
     @order_item = OrderItem.find(params[:id])
-
+    @total_amount = OrderItem.total_amount(@order)
     @order_status_key = Order.order_statuses
     @product_status_key = OrderItem.product_statuses
     @customer = @order.customer
@@ -27,7 +27,7 @@ class Admin::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:order_status, :product_status)
+    params.require(:order).permit(:order_status, :product_status, :customer_id)
   end
 
 end

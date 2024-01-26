@@ -1,12 +1,11 @@
 <% provide(:title, "商品一覧") %>
-<div class="container">
-  <div class="row mt-4">
+<div class="container mt-5">
+  <div class="row">
     <div class="col-sm-12" >
       <div>
       <h3 class="row mb-3">商品一覧</h3>
-
       <%= link_to new_admin_item_path, data: {"turbolinks" => false}, class: "d-flex justify-content-end" do %>
-        <i class="fas fa-plus-circle fa-3x plus-button"></i>
+      <i class="fas fa-plus-circle fa-3x plus-button"></i>
       <% end %>
       </div>
       <% unless @items.blank? %>
@@ -25,7 +24,7 @@
               <tr>
                 <td><%= item.id %></td>
                 <td><%= link_to item.name, admin_item_path(item) %></td>
-                <td><%= item.unit_price.to_s(:delimited) %></td>
+                <td>￥<%= number_with_delimiter item.unit_price %></td>
                 <td><%= item.genre.name %></td>
                 <td>
                   <% if item.is_active == true %>
@@ -41,11 +40,7 @@
       <% else %>
         <p>商品はありません</p>
       <% end %>
-
-      <div class= "d-flex justify-content-center">
-
-      </div>
-
     </div>
+    <div><%= paginate @items %></div>
   </div>
 </div>

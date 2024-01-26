@@ -1,5 +1,5 @@
-<div class= "container">
-  <p id="notice"><%= notice %></p>
+<% provide(:title, "商品詳細") %>
+<div class= "container mt-5">
   <div class= "row">
     <div class= "col-md-5">
       <h2>商品詳細</h2>
@@ -9,30 +9,26 @@
        <%= image_tag 'no_image', size: "200x200" %>
        <% end %>
     </div>
-
     <div class= "col-md-7" style="margin-top: 40px;">
       <div class="item-group">
         <label class="col-sm-4">商品名</label>
         <%= @item.name %>
       </div></br>
-
       <div class="item-introduction">
         <label class="col-sm-4">商品説明</label>
           <%= @item.introduction %>
       </div></br>
-
       <div class="item-genres">
          <label class="col-sm-4">ジャンル</label>
          <%= @item.genre.name %>
       </div></br>
-
       <div class="item-price-group">
         <label class="col-sm-4">
-          税込価格</br>(税抜価格)
+          税込価格<br>（税抜価格）
         </label>
-          <span class="h5"><%= @item.unit_price.to_s(:delimited) %>円</span>
+          <span class="h5"><%= number_with_delimiter @item.price %></span>
+          <span class="h5">(<%= number_with_delimiter @item.unit_price %>)円</span>
       </div></br>
-
       <div class="product-status">
         <label class="col-sm-4">
           販売ステータス

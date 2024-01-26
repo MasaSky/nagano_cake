@@ -38,7 +38,7 @@
           </tr>
         </tbody>
        </table>
-       <table class='table'>
+       <table class='table table-hover'>
          <thead>
            <tr class="table-active">
             <th>商品名</th>
@@ -52,9 +52,9 @@
            <% @order_items.each do |od| %>
            <tr>
               <td><%= od.item.name %></td>
-              <td><%= od.item.price %></td>
-              <td><%= od.quantity %></td>
-              <td><%= od.subtotal %></td>
+              <td class="text-right">￥<%= number_with_delimiter od.item.price %>-</td>
+              <td class="text-right"><%= od.quantity %></td>
+              <td class="text-right">￥<%= number_with_delimiter od.subtotal %>-</td>
               <td>
               <%= form_with model: od, url: admin_order_item_path(od), method: :patch do |f| %>
               <%= f.select(:product_status, OrderItem.product_statuses_i18n.invert, {prompt: "選択してください"}, class: 'form-control') %>
@@ -69,23 +69,22 @@
     <div class="col-lg-4 mt-5">
       <table class="table table-hover">
         <tbody>
-          <% total = 0 %>
           <tr>
             <th>商品合計</th>
-            <td>
-              <%= @order.grand_total %>
+            <td class="text-right">
+              ￥<%= number_with_delimiter @total_amount %>-
             </td>
           </tr>
           <tr>
             <th>送料</th>
-            <td>
-              <%= @order.freight %>
+            <td class="text-right">
+              ￥<%= number_with_delimiter @order.freight %>-
             </td>
           </tr>
           <tr>
             <th>請求金額合計</th>
-            <td>
-              <%= @order.grand_total %>
+            <td class="text-right">
+              ￥<%= number_with_delimiter @order.grand_total %>-
             </td>
           </tr>
         </tbody>

@@ -26,13 +26,13 @@
                 <%= c.item.name %>
               </td>
               <td class="text-right">
-                ¥<%= c.item.price.to_s(:delimited) %>-
+                ¥<%= number_with_delimiter c.item.price %>-
               </td>
               <td class="text-right">
                 <%= c.quantity %>
               </td>
               <td class="text-right">
-                ¥<%= c.subtotal %>-
+                ¥<%= number_with_delimiter c.subtotal %>-
               </td>
             </tr>
           <% end %>
@@ -43,15 +43,15 @@
       <table class="table table-hover table-condensed table-bordered">
         <tr>
           <th>送料</th>
-          <td class="text-right col-xs-5">¥<%= @order.freight %></td>
+          <td class="text-right col-xs-5">¥<%= number_with_delimiter @order.freight %>-</td>
         </tr>
         <tr>
           <th>商品合計</th>
-          <td class="text-right">¥<%= @total_amount %></td>
+          <td class="text-right">¥<%= number_with_delimiter @total_amount %>-</td>
         </tr>
         <tr>
           <th>請求金額</th>
-          <td class="text-right">¥<%= @grand_total %></td>
+          <td class="text-right">¥<%= number_with_delimiter @grand_total %>-</td>
         </tr>
       </table>
     </div>
