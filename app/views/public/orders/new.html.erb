@@ -18,7 +18,7 @@
         </div>
         <h4>お届け先</h3>
         <div class="col-md-12 table table-hover">
-          <p><%= f.radio_button :delivery_option, 0 %>ご自身の住所</p>
+          <p><%= f.radio_button :delivery_option, 0,checked: true %>ご自身の住所</p>
           <p><%= current_customer.address_display %><p>
         </div>
         <div class="col-md-12 table table-hover">

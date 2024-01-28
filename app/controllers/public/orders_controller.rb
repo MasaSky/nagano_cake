@@ -8,6 +8,7 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
+    @delivery_order = Delivery.new
     if params[:order][:delivery_option] == '0'
       @order.attention = current_customer.last_name + current_customer.first_name
       @order.postal_code = current_customer.postal_code
@@ -48,6 +49,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def complete
+
 
   end
 

@@ -25,6 +25,7 @@
             <tr>
               <td><p><%= genre.name %></p></td>
               <td><%= link_to '編集', edit_admin_genre_path(genre.id), class: "btn btn-success" %></td>
+              <td><%= link_to '削除', admin_genre_path(genre.id), method: :delete, class: "btn btn-danger" %></td>
             </tr>
             <% end %>
             <% end %>

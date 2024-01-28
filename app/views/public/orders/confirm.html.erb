@@ -60,7 +60,13 @@
       <dt>支払方法</dt>
         <dd><%= @order.payment_method %></dd>
       <dt>お届け先</dt>
-        <dd>〒<%= "#{@order.postal_code} #{@order.address} #{@order.attention}" %></dd>
+      <dd>〒<%= "#{@order.postal_code} #{@order.address} #{@order.attention}" %></dd>
+      <%= form_with model: @delivery_order, url: deliveries_path, method: :post do |f| %>
+      <%= f.hidden_field :attention, value: @order.attention %>
+      <%= f.hidden_field :postal_code, value: @order.postal_code %>
+      <%= f.hidden_field :address, value: @order.address %>
+      <dd><%= f.submit "配送先登録", class:"btn btn-success" %></dd>
+      <% end %>
     </dl>
     <div class ="my-5">
       <%= form_with(model: @order, url: orders_path, method: :post, class: "text-center", local: true) do |f| %>

@@ -15,6 +15,15 @@ class Public::DeliveriesController < ApplicationController
       @deliveries = Delivery.where(customer_id: current_customer.id)
       render :index
     end
+
+    @delivery_order = Delivery.new(delivery_params)
+    @delivery_order.customer_id = current_customer.id
+    if @delivery_order.save
+      flash[:notice] = "配送先を登録しました"
+      return
+    else
+    end
+
   end
 
   def edit
