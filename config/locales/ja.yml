@@ -22,6 +22,44 @@ ja:
         in_shipping: "出荷準備中"
         shipped: "発送済み"
   activerecord:
+    models:
+      admin: "管理者"
+      cart_item: "ショッピングカート"
+      customer: "会員"
+      delivery: "配送先"
+      item: "商品"
+      genre: "ジャンル"
+      order: "注文"
+      order_item: "注文詳細"
+    attributes:
+      delivery:
+        last_name: "姓"
+        first_name: "名"
+        last_name_kana: "セイ"
+        first_name_kana: "メイ"
+        postal_code: "郵便番号"
+        address: "住所"
+        telphone_number: "電話番号"
+      item:
+        name: "商品名"
+        introduction: "商品紹介"
+        unit_price: "税抜価格"
+      cart_item:
+        quantity: "数量"
+      order:
+        attention: "宛先"
+        postal_code: "郵便番号"
+        address: "住所"
+        freight: "配送料"
+        grand_total: "請求金額"
+        payment_method: "支払方法"
+        order_status: "注文ステータス"
+      order_item:
+        price: "税込価格"
+        quantity: "数量"
+        product_status: "販売ステータス"
+      genre:
+        name: "ジャンル名"
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

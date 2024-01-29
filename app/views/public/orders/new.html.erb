@@ -1,9 +1,9 @@
 <% provide(:title, "注文情報入力") %>
-<div class="container">
-  <h2 class="px-3 col-md-4 text-center"> 注文情報入力</h2>
+<div class="container mt-5">
+  <h2 class="text-center"> 注文情報入力</h2>
   <div class="row">
     <div class="col-lg-12">
-      <%= form_with model: @order, url: confirm_orders_path , method: :post do |f| %>
+      <%= form_with model: @order, url: confirm_orders_path , method: :post, local: true do |f| %>
       <div>
         <h4>支払い方法</h3>
         <div class="col-md-12 table table-hover">

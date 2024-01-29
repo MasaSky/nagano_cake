@@ -1,7 +1,14 @@
-<% provide(:title, "ありがとうございました！") %>
+<% provide(:title, "注文完了") %>
 <div class="row">
-  <div class="col-xs-12 mx-auto  text-center">
-    <h1>ご注文ありがとうございました！</h1><br>
-    <%= link_to "注文履歴はこちら", orders_path, class: "btn btn-info" %>
+  <div class="col-xs-12 mx-auto my-5 text-center">
+    <h1>ご注文ありがとうございます！</h1><br>
+    <div class="row my-5">配送先を新規登録する場合は登録ボタンを押してください。
+      <%= form_with model: @delivery, url: deliveries_path, method: :post, local: true do |f| %>
+      <%= f.hidden_field :attention, value: @order.attention %>
+      <%= f.hidden_field :postal_code, value: @order.postal_code %>
+      <%= f.hidden_field :address, value: @order.address %>
+      <%= f.submit "登録", class:"btn btn-success" %></div>
+      <% end %>
+    <div class="row my-8"><%= link_to "注文履歴はこちら", orders_path, class: "btn btn-info" %></div>
   </div>
 </div>
