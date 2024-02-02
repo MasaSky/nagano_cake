@@ -1,8 +1,13 @@
 class Admin::OrdersController < ApplicationController
-  include ApplicationHelper
+  before_action :ensure_order, only: [:show, :update]
+
+  def index
+    @customer = Customer.find_by(params[:customer_id])
+    @orders = @customer.orders.page(params[:page]).reverse_order
+    @order_count = @customer.orders.count
+  end
 
   def show
-    @order = Order.find(params[:id])
     @orders = Order.all
     @order_items = OrderItem.where(order_id: @order.id)
     @order_new = Order.new
@@ -14,7 +19,6 @@ class Admin::OrdersController < ApplicationController
   end
 
   def update
-    @order = Order.find(params[:id])
     @order.update(order_params)
     if @order.order_status == "入金確認"
      @order.order_items.update_all(product_status: 1)
@@ -31,4 +35,7 @@ class Admin::OrdersController < ApplicationController
     params.require(:order).permit(:order_status, :product_status, :customer_id)
   end
 
+  def ensure_order
+    @order = Order.find(params[:id])
+  end
 end

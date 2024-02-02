@@ -1,8 +1,8 @@
-<% provide(:title, "注文履歴一覧") %>
+<% provide(:title, '注文履歴一覧') %>
 <div class="container">
   <div class="row">
    <div class="col-md-12">
-     <h2>注文履歴一覧（全<%= @order_count %>件）</h2>
+     <h2><%= @customer.full_name %>さんの注文履歴一覧（全<%= @order_count %>件）</h2>
     <table class='table'>
      <thead>
       <tr>
@@ -23,7 +23,7 @@
      <% end %>
      </tbody>
     </table>
-    <div><%= paginate @orders %></div>
+    <%= paginate @orders %>
    </div>
   </div>
 </div>

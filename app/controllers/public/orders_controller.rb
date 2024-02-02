@@ -1,5 +1,6 @@
 class Public::OrdersController < ApplicationController
-  include ApplicationHelper
+  before_action :ensure_cart_items, only: [:new, :confirm, :create]
+  before_action :set_order_id, only: [:complete]
 
   def new
     @order = Order.new
@@ -9,58 +10,36 @@ class Public::OrdersController < ApplicationController
   def confirm
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
+    @total_amount = CartItem.total_amount(current_customer)
+    @grand_total = CartItem.total_amount(current_customer) + @order.freight
     if params[:order][:delivery_option] == '0'
-      @order.attention = current_customer.last_name + current_customer.first_name
-      @order.postal_code = current_customer.postal_code
-      @order.address = current_customer.address
+      @order.delivery_form(current_customer)
 
     elsif params[:order][:delivery_option] == '1'
       @delivery = Delivery.find(params[:order][:delivery_id])
-      @order.attention = @delivery.attention
-      @order.postal_code = @delivery.postal_code
-      @order.address = @delivery.address
+      @order.delivery_form(@delivery)
 
     elsif params[:order][:delivery_option] == '2'
       @order.attention = params[:order][:attention]
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
     end
-     @cart_items = current_customer.cart_items.all
-     @total_amount = CartItem.total_amount(current_customer)
-     @grand_total = CartItem.total_amount(current_customer) + @order.freight
-     unless @order.valid? == true
-     render :confirm
-     end
+      unless @order.valid? == true
+      flash[:notice] = "入力情報に不備があります。"
+      @deliveries = Delivery.where(customer: current_customer)
+      render :new
+      end
   end
 
   def create
-    @order = Order.new(order_params)
-    unless @order.invalid? == true
+    @order = current_customer.orders.new(order_params)
     @order.save
-    @cart_items = current_customer.cart_items.all
-      @cart_items.each do |cart_item|
-      @order_items = OrderItem.new
-      @order_items.order_id = @order.id
-      @order_items.item_id = cart_item.item.id
-      @order_items.price = cart_item.item.price
-      @order_items.quantity = cart_item.quantity
-      @order_items.product_status = 0
-      @order_items.save
-      end
-      CartItem.destroy_all
-      redirect_to complete_orders_path
-    else
-      @cart_items = current_customer.cart_items.all
-      @order = Order.new(order_params)
-      @total_amount = OrderItem.total_amount(@order)
-      render :confirm
-      flash[:notice] = "注文を完了できません。"
-    end
+    @order.create_order_items(current_customer)
+    redirect_to complete_orders_path
   end
 
   def complete
-    @order_id = current_customer.id
-    @order = Order.find(@order_id)
+    @order_new = Order.find(@order_id)
     @delivery = Delivery.new
   end
 
@@ -80,4 +59,12 @@ class Public::OrdersController < ApplicationController
     params.require(:order).permit(:customer_id, :attention, :postal_code, :address, :freight, :grand_total, :payment_method, :order_status)
   end
 
+  def ensure_cart_items
+    @cart_items = current_customer.cart_items.includes(:item)
+    redirect_to items_path unless @cart_items.first
+  end
+
+  def set_order_id
+    @order_id = current_customer.orders.last.id
+  end
 end

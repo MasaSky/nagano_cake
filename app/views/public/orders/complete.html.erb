@@ -4,9 +4,9 @@
     <h1>ご注文ありがとうございます！</h1><br>
     <div class="row my-5">配送先を新規登録する場合は登録ボタンを押してください。
       <%= form_with model: @delivery, url: deliveries_path, method: :post, local: true do |f| %>
-      <%= f.hidden_field :attention, value: @order.attention %>
-      <%= f.hidden_field :postal_code, value: @order.postal_code %>
-      <%= f.hidden_field :address, value: @order.address %>
+      <%= f.hidden_field :attention, value: @order_new.attention %>
+      <%= f.hidden_field :postal_code, value: @order_new.postal_code %>
+      <%= f.hidden_field :address, value: @order_new.address %>
       <%= f.submit "登録", class:"btn btn-success" %></div>
       <% end %>
     <div class="row my-8"><%= link_to "注文履歴はこちら", orders_path, class: "btn btn-info" %></div>
