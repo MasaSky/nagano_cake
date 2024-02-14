@@ -5,7 +5,7 @@
       <h3 class="px-3 my-3 col-md-4 text-center">会員情報編集</h3>
       <div><%= render "layouts/form_error_messages", model: @customer %></div>
       <table class="table table-borderless">
-        <%= form_with model: @customer do |f| %>
+        <%= form_with model: @customer, url: info_update_path do |f| %>
         <tr>
           <th class="col-md-3 col-sm-4">氏名</th>
           <th class="col-md-8 col-sm-8"><%= f.text_field :last_name %> <%= f.text_field :first_name, class: "inline-block ml-3" %></th>
@@ -32,7 +32,7 @@
         </tr>
         <tr>
           <th><%= f.submit "編集内容を保存", class: "btn btn-lg btn-success" %></th>
-          <th><%= link_to "退会する", quit_customers_path, class: "btn btn-lg btn-danger" %></th>
+          <th><%= link_to "退会する", info_quit_path, class: "btn btn-lg btn-danger" %></th>
         </tr>
         <% end %>
       </table>

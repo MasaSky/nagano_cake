@@ -6,19 +6,11 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get "about" => "homes#about", as: :about
-    resources :items, only: [:index, :show] do
-      collection do
-        get 'search_genres' => 'items#search_genres', as: 'genres'
-        get 'search_word' => 'items#search_word', as: 'search'
-      end
-    end
-    resources :customers, only: [:show, :edit, :update] do
-      collection do
-        get 'info' => 'customers#show', as: 'info'
-        get 'quit' => 'customers#quit'
-        patch 'deactive' => 'customers#deactive'
-      end
-    end
+    get 'info' => 'customers#show'
+    get 'info/edit' => 'customers#edit'
+    patch 'info/update' => 'customers#update'
+    get 'info/quit' => 'customers#quit'
+    patch 'deactive' => 'customers#deactive'
     resources :deliveries, only: [:index, :create, :edit, :update, :destroy]
     resources :cart_items, only: [:index, :create, :update, :destroy] do
       collection do
@@ -29,6 +21,12 @@ Rails.application.routes.draw do
       collection do
         post 'confirm' => 'orders#confirm', as: 'confirm'
         get 'complete' => 'orders#complete', as: 'complete'
+      end
+    end
+    resources :items, only: [:index, :show] do
+      collection do
+        get 'search_genres' => 'items#search_genres', as: 'genres'
+        get 'search_word' => 'items#search_word', as: 'search'
       end
     end
   end
