@@ -6,11 +6,15 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get "about" => "homes#about", as: :about
-    get 'info' => 'customers#show'
-    get 'info/edit' => 'customers#edit'
-    patch 'info/update' => 'customers#update'
-    get 'info/quit' => 'customers#quit'
-    patch 'deactive' => 'customers#deactive'
+    resources :customers do
+      collection do
+        get 'info' => 'customers#show'
+        get 'info/edit' => 'customers#edit'
+        patch 'info/update' => 'customers#update'
+        get 'info/quit' => 'customers#quit'
+        patch 'deactive' => 'customers#deactive'
+      end
+    end
     resources :deliveries, only: [:index, :create, :edit, :update, :destroy]
     resources :cart_items, only: [:index, :create, :update, :destroy] do
       collection do

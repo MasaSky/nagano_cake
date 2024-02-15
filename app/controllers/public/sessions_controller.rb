@@ -4,7 +4,7 @@ class Public::SessionsController < Devise::SessionsController
   before_action :reject_customer, only: [:create]
 
   def after_sign_in_path_for(resource)
-    info_path
+    info_customers_path
   end
 
   def after_sign_out_path_for(resource)

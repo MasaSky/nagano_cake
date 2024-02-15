@@ -1,8 +1,8 @@
 class Admin::OrdersController < ApplicationController
   before_action :ensure_order, only: [:show, :update]
-
+  
   def index
-    @customer = Customer.find_by(params[:customer_id])
+    @customer = Customer.find(params[:customer_id])
     @orders = @customer.orders.page(params[:page]).reverse_order
     @order_count = @customer.orders.count
   end

@@ -3,6 +3,7 @@
   <div class="row">
     <div class="col">
       <h4 class="px-3 my-3 text-center col-md-3">配送先登録/一覧</h4>
+      <div><%= render "layouts/form_error_messages", model: @delivery %></div>
       <table class="table table-borderless">
         <%= form_with model: @delivery, method: :post, local: true do |f| %>
           <tr>
@@ -45,7 +46,6 @@
           </tbody>
         </table>
       <% end %>
-      <div class="row"><%= paginate @deliveries %></div>
     </div>
   </div>
 </div>
