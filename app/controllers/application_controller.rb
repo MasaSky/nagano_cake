@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     if admin_controller?
       authenticate_admin!
     else
-      authenticate_user! unless public_controller?
+      authenticate_user! unless admin_controller?
     end
   end
 
