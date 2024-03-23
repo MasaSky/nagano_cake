@@ -16,6 +16,10 @@ class Customer < ApplicationRecord
   validates :postal_code, presence: true, length: { is: 7 }, numericality: { only_integer: true }
   validates :telphone_number, presence: true, length: { in: 10..11 }, numericality: { only_integer: true }
 
+  def active_for_authentication?
+    super && (is_active == true)
+  end
+	
   def full_name
     first_name + " " + last_name
   end
